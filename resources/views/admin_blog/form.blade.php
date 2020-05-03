@@ -49,6 +49,15 @@
     {{--CSRFトークンが生成される--}}
     {{ csrf_field() }}
 </form>
+            @if (isset($id))
+                <br>
+                <form action="{{ route('admin_delete') }}" method="POST">
+                    <input type="submit" class="btn btn-primary btn-sm" value="削除">
+                    <input type="hidden" name="id" value="{{ $id }}">
+                    {{ csrf_field() }}
+                </form>
+            @endif
+
     <!-- jqueryの読み込み -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- BootstrapのJS読み込み -->

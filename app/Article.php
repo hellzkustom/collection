@@ -2,12 +2,31 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model
 {
+       use SoftDeletes;
+    
     protected $primarykey ='article_id';
     protected $fillable = ['post_date','title','body'];
-    protected $dates=['post_date','created_at','deleted_at'];
+    protected $dates=['post_date','updated_at','created_at','deleted_at'];
     
+        public function getPostDateTextAttribute()
+    {
+        return $this->post_date->format('Y/m/d');
+    }
+
+    /**
+     * post_date のミューテタ YYYY-MM-DD のフォーマットでセットする
+     *
+     * @param $value
+     */
+    public function setPostDateAttribute($value)
+    {
+        $post_date = new Carbon($value);
+        $this->attributes['post_date'] = $post_date->format('Y-m-d');
+    }
 }

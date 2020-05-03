@@ -23,7 +23,7 @@ class AdminBlogController extends Controller
             $input['post_date']=$article->post_date_text;
         }
         else{
-            $id='dd';
+            $id=null;
         }
         
         $input=array_merge($input,old());
@@ -54,5 +54,16 @@ class AdminBlogController extends Controller
         
         return redirect()->route('admin_form',  ['id' => $article->id])->with('message','記事を保存しました');
         
+    }
+        public function delete(AdminBlogRequest $request)
+    {
+        // 記事IDの取得
+        $id = $request->input('id');
+
+        $result = $this->article->destroy($id);
+        $message = ($result) ? '記事を削除しました' : '記事の削除に失敗しました。';
+
+        // フォーム画面へリダイレクト
+        return redirect()->route('admin_form')->with('message', $message);
     }
 }
