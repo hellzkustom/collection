@@ -35,15 +35,17 @@
     
     <form method="POST" action="{{route('admin_post')}}">
     日付<br>
-    <input name="post_date" size="20" value="" placeholder="日付を入力して下さい。"><br><br>
+    <input class="form_control" name="post_date" size="20" value="{{isset($input['post_date']) ? $input['post_date'] : null}}" placeholder="日付を入力して下さい。"><br><br>
 
     タイトル<br>
-    <input name="title" value="" placeholder="タイトルを入力して下さい。"><br><br>
+    <input class=form_control" name="title" value="{{isset($input['title']) ? $input['title'] : null}}" placeholder="タイトルを入力して下さい。"><br><br>
 
     本文<br>
-    <textarea cols="50" rows="15" name="body" placeholder="本文を入力してください。"></textarea><br>
+    <textarea class="form_control" cols="50" rows="15" name="body" placeholder="本文を入力してください。">{{isset($input['body']) ? $input['body'] : null}}</textarea><br>
 
     <input type="submit" value="送信">
+    {{--article_id があるか無いかで新規作成か既存編集かを区別する--}}
+    <input type="hidden" name="id" value="{{ $id }}">
     {{--CSRFトークンが生成される--}}
     {{ csrf_field() }}
 </form>
