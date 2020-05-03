@@ -11,9 +11,29 @@
 
 <body>
     
-<h2>ブログ記事投稿・編集</h2>
-
-<form method="POST">
+    <h2>ブログ記事投稿・編集</h2>
+    
+    @if(session('message'))
+        <div class="alert alert-success">
+        
+        {{session('message')}}
+        
+        </div>
+    @endif
+    
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>
+                    {{$error}}
+                </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    
+    <form method="POST" action="{{route('admin_post')}}">
     日付<br>
     <input name="post_date" size="20" value="" placeholder="日付を入力して下さい。"><br><br>
 
