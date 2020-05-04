@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>ブログ記事投稿フォーム</title>
-    {{--asset ヘルパー関数を使うと public/ 配下ファイルへのURLを生成してくれる--}}
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">   
-    <link rel="stylesheet" href="{{ asset('/public/css/blog.css') }}">
-</head>
-
-<body>
-    
+@extends('admin_blog.app')
+@section('title','ブログ記事投稿フォーム')
+@section('body')
     <h2>ブログ記事投稿・編集</h2>
     
     @if(session('message'))
@@ -57,10 +47,5 @@
                     {{ csrf_field() }}
                 </form>
             @endif
+@endsection
 
-    <!-- jqueryの読み込み -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- BootstrapのJS読み込み -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-</body>
-</html>

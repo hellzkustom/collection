@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>ブログ記事一覧</title>
-</head>
-
-<body>
+@extends('admin_blog.app')
+@section('title','ブログ記事一覧')
+@section('body')
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -55,5 +50,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+@endsection
