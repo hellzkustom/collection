@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Article;
 use Illuminate\Support\Arr;
 use App\Http\Requests\FrontBlogRequest;
 use Carbon\Carbon;

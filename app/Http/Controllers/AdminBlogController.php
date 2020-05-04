@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Http\Requests\AdminBlogRequest;
-use App\Models\Article;
+use App\Article;
+use App\Category;
 
 class AdminBlogController extends Controller
 {
+    
+    protected $article;
+    protected $category;
     
     const NUM_PER_PAGE=10;
     
@@ -35,9 +39,10 @@ class AdminBlogController extends Controller
 
     }
     
-    function __construct(Article $article)
+    function __construct(Article $article,Category $category)
     {
         $this->article=$article;
+        $this->category=$category;
     }
     
     public function post(AdminBlogRequest $request)
@@ -72,7 +77,11 @@ class AdminBlogController extends Controller
         return view('admin_blog.list',compact('list'));
     }
     
-    
+    public function category()
+    {
+        $list=$this->category->getCategoryList(self::NUM_PER_PAGE);
+        return view('admin_blog.category',compact('list'));
+    }
     
     
     
