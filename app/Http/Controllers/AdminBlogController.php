@@ -9,6 +9,9 @@ use App\Models\Article;
 
 class AdminBlogController extends Controller
 {
+    
+    const NUM_PER_PAGE=10;
+    
     public function form(int $id =null)
     {
         
@@ -43,15 +46,10 @@ class AdminBlogController extends Controller
         $input = $request->input();
         
        $id=Arr::get($input,'id');
-       
-       
-     // $article=Article::findOrFail($request->id);
-        
+      
+    
        $article = $this->article->updateOrCreate(compact('id'), $input);
-    //   $article=$this->article->create($input);
-        //Article::updateOrCreate();
-
-        
+    
         return redirect()->route('admin_form',  ['id' => $article->id])->with('message','記事を保存しました');
         
     }
@@ -66,4 +64,16 @@ class AdminBlogController extends Controller
         // フォーム画面へリダイレクト
         return redirect()->route('admin_form')->with('message', $message);
     }
+
+    public function list()
+    {
+        //$list=$this->article->getArticleList(self::NUM_PER_PAGE);
+        $list=Article::orderby('id','desc')->paginate(self::NUM_PER_PAGE);
+        return view('admin_blog.list',compact('list'));
+    }
+    
+    
+    
+    
+    
 }

@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('admin/form/{id?}','AdminBlogController@form')->name('admin_form');
-Route::post('admin/post','AdminBlogController@post')->name('admin_post');
-Route::post('admin/delete', 'AdminBlogController@delete')->name('admin_delete');
+Route::prefix('admin')->group(function(){
+    Route::get('form/{id?}','AdminBlogController@form')->name('admin_form');
+    Route::post('post','AdminBlogController@post')->name('admin_post');
+    Route::post('delete', 'AdminBlogController@delete')->name('admin_delete');
+    Route::get('list','AdminBlogController@list')->name('admin_list');
+});

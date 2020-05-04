@@ -29,4 +29,10 @@ class Article extends Model
         $post_date = new Carbon($value);
         $this->attributes['post_date'] = $post_date->format('Y-m-d');
     }
+    public function getArticleListAttribute($num_per_page=10)
+    {
+        return Article::orderby('id','desc')->paginate($num_per_page);
+        
+    }
+    
 }
