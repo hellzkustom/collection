@@ -30,3 +30,7 @@ Route::get('category', 'AdminBlogController@category')->name('admin_category');
     Route::post('category/edit', 'AdminBlogController@editCategory')->name('admin_category_edit');
     Route::post('category/delete', 'AdminBlogController@deleteCategory')->name('admin_category_delete');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -11,7 +11,7 @@ class Article extends Model
        use SoftDeletes;
     
     protected $primarykey ='article_id';
-    protected $fillable = ['post_date','title','body'];
+    protected $fillable = ['post_date','title','body','category_id'];
     protected $dates=['post_date','updated_at','created_at','deleted_at'];
     
         public function getPostDateTextAttribute()

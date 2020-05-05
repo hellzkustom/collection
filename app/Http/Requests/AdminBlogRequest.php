@@ -5,6 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AdminBlogRequest extends FormRequest
 {
@@ -38,13 +40,26 @@ class AdminBlogRequest extends FormRequest
            'id' => 'required|integer'     // 必須・整数
         ];
 
+        $rules['editCategory']=[
+            'id'=>'integer|min:1|nullable',
+            'name'=>'required|string|max:255',
+            'display_order'=>'required|integer|min:1',
+        ];
+        
+        $rules['deleteCategory']=[
+        'id'=>'required|integer|min:1',
+        ];
+        
+        
         return Arr::get($rules, $action, []);
     }
     
     public function messages()
     {
         return [
-            'id.integer'=>'記事IDは整数でなければなりません',    
+            'id.integer'=>'IDは整数でなければなりません',   
+            'id.required'=>'IDは必須です',
+            'id.min'=>'IDは1以上です',
             'post_date.required'=>'日付は必須です',
             'post_date.date'=>'日付は日付形式で入力してください',
             
@@ -56,6 +71,13 @@ class AdminBlogRequest extends FormRequest
             'body.string'=>'本文は文字列を入力してください',
             'body.max'=>'本文は:max文字以内で入力してください',
             
+            'name.required'=>'カテゴリ名は必須です',
+            'name.string'=>'カテゴリ名は文字列を入力してください',
+            'name.max'=>'カテゴリ名は:max文字以内で入力してください',
+            
+            'display_order.required'=>'表示順は必須です',
+            'display_order.integer'=>'表示順は整数を入力してください',
+            'display_order.min'=>'表示順は1以上を入力してください',
         ];
     }
         public function getCurrentAction()
@@ -66,5 +88,22 @@ class AdminBlogRequest extends FormRequest
         list(, $action) = explode('@', $route_action);
         return $action;
     }
+    
+    protected function failedValidation(Validator $validator)
+    {
+        $action=$this->getCurrentAction();
+        
+        if($action=='post'||$action=='delete')
+        {
+            parent::failedValidation($validator);
+        }
+        
+        
+
+        $response['errors']=$validator->errors();
+        throw new HttpResponseException(
+            response()->json($response,422));
+    }
+    
     
 }

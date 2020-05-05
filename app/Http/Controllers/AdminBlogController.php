@@ -35,7 +35,11 @@ class AdminBlogController extends Controller
         
         $input=array_merge($input,old());
         
-        return view('admin_blog.form',compact('input','id'));
+        $category_list=$this->category->getCategoryList()->pluck('name','id');
+        
+        return view('admin_blog.form',compact('input','id',$category_list));
+
+        
 
     }
     
@@ -83,6 +87,25 @@ class AdminBlogController extends Controller
         return view('admin_blog.category',compact('list'));
     }
     
-    
+    public function editCategory(AdminBlogRequest $request)
+    {
+        $input=$request->input();
+         $id=Arr::get($input,'id');
+     
+        $category=$this->category->updateOrCreate(compact('id'),$input);
+        
+        return response()->json($category);
+    }
+  
+      public function deleteCategory(AdminBlogRequest $request)
+      {
+        $id=$request->input('id');
+        
+         
+         $this->category->destroy($id);
+          
+          return response()->json();
+          
+      }
     
 }
