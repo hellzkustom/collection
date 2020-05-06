@@ -2,7 +2,7 @@
 @section('title','ブログ記事投稿フォーム')
 @section('body')
     <h2>ブログ記事投稿・編集</h2>
-    
+
     @if(session('message'))
         <div class="alert alert-success">
         
@@ -66,5 +66,7 @@
                     {{ csrf_field() }}
                 </form>
             @endif
+                    <br><a href="{{ route('admin_list') }}">リストに戻る</a><br><br>
+
 @endsection
 
