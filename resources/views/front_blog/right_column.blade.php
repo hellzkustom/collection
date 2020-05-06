@@ -2,6 +2,25 @@
 <div class="col-sm-3">
     <div class="panel panel-default">
         <div class="panel-heading">
+            <h3 class="panel-title">カテゴリー</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="monthly_archive">
+                @forelse($category_list as $category)
+                    <li>
+                        <a href="{{ route('front_index', ['category_id' => $category->id,]) }}">
+                            {{ $category->name }}
+                        </a>
+                    </li>
+                @empty
+                    <p>カテゴリーがありません</p>
+                @endforelse
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
             <h3 class="panel-title">月別アーカイブ</h3>
         </div>
         <div class="panel-body">

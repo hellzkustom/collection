@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
+use App\Category;
 use Illuminate\Support\Arr;
 use App\Http\Requests\FrontBlogRequest;
 use Carbon\Carbon;
@@ -12,9 +13,13 @@ class FrontBlogController extends Controller
 {
     const NUM_PER_PAGE=10;
     
-        function __construct(Article $article)
+    protected $article;
+    protected $category;
+    
+        function __construct(Article $article, Category $category)
     {
         $this->article = $article;
+        $this->category = $category;
     }
 
     
@@ -29,15 +34,35 @@ class FrontBlogController extends Controller
              $list->appends($input);
            
        $month_list=self::getMonthList();
+        $category_list=self::getCatgoryList();
         
-        return view('front_blog.index',compact('list','month_list'));
+        return view('front_blog.index',compact('list','month_list','category_list'));
     }
+    
+    public function getCatgoryList()
+    {
+        $category_list=Category::select('name','id')
+                             ->orderBy('display_order','desc')
+                             ->get();
+     
+            return $category_list;
+    }
+    
     public function getArticleList(int $num_per_page=10,array $condition=[])
     {
-        $year=Arr::get($condition,'year');
+        $category_id=Arr::get($condition,'category_id');
+        $year=Arr::get($condition,'year');        
         $month=Arr::get($condition,'month');
+      
+      
         
-        $query=Article::orderBy('id','desc');
+        $query=Article::with('category')->orderBy('id','desc');
+        
+        if($category_id)
+       {
+           $query->where('category_id',$category_id);
+        }
+        
         if($year)
         {
             if($month)

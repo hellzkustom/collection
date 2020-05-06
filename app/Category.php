@@ -22,4 +22,9 @@ class Category extends Model
         return $query->get();
         
     }
+        public function article()
+        {
+            return $this->hasMany('App\Article','id','catefory_id');
+    }
+    
 }

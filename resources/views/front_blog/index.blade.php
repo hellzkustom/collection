@@ -16,6 +16,11 @@
                         {!! nl2br(e($article->body)) !!}
                     </div>
                     <div class="panel-footer text-right">
+                                            <a href="{{ route('front_index', ['category_id' => $article->category_id]) }}">
+                        {{ $article->category->name}}
+                    </a>
+                        
+                                            &nbsp;&nbsp;
                         {{--updated_at も日付ミューテタに設定してあるので Carbon インスタンスにキャストされる--}}
                         {{ $article->updated_at->format('Y/m/d H:i:s') }}
                     </div>

@@ -26,6 +26,7 @@ class FrontBlogRequest extends FormRequest
         return [
             'year'=>'integer',
             'month'=>'integer',
+            'category_id'=>'integer|min:1',
         ];
     }
     public function messages()
@@ -33,6 +34,8 @@ class FrontBlogRequest extends FormRequest
         return [
             'year.integer'=>'年は整数を入れてください',
             'month.ineger'=>'月は整数を入れてください',
+            'category_id.ineger'=>'カテゴリIDは整数にしてください',
+            'category_id.min'=>'カテゴリIDは1以上にしてください',
         ];
         
     }

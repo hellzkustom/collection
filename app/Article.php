@@ -34,5 +34,9 @@ class Article extends Model
         return Article::orderby('id','desc')->paginate($num_per_page);
         
     }
+    public function category()
+    {
+        return $this->hasOne('App\Category','id','category_id');
+    }
     
 }
