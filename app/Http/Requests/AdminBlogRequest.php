@@ -34,6 +34,7 @@ class AdminBlogRequest extends FormRequest
             'post_date'  => 'required|date',                 // 必須・日付
             'title'      => 'required|string|max:255',       // 必須・文字列・最大値（255文字まで）
             'body'       => 'required|string|max:10000',     // 必須・文字列・最大値（10000文字まで）
+                    'category_id'=>'required|integer|min:1',
         ];
 
         $rules['delete'] = [
@@ -47,7 +48,7 @@ class AdminBlogRequest extends FormRequest
         ];
         
         $rules['deleteCategory']=[
-        'id'=>'required|integer|min:1',
+        'id'=>'required|integer|min:0',    
         ];
         
         
@@ -60,6 +61,12 @@ class AdminBlogRequest extends FormRequest
             'id.integer'=>'IDは整数でなければなりません',   
             'id.required'=>'IDは必須です',
             'id.min'=>'IDは1以上です',
+            
+            'category_id.integer'=>'カテゴリーを選択',
+            'category_id.required'=>'カテゴリーを選択してく',
+            'category_id.min'=>'カテゴリーを選択てくだ',
+            
+            
             'post_date.required'=>'日付は必須です',
             'post_date.date'=>'日付は日付形式で入力してください',
             

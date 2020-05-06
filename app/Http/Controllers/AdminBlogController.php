@@ -35,9 +35,11 @@ class AdminBlogController extends Controller
         
         $input=array_merge($input,old());
         
-        $category_list=$this->category->getCategoryList()->pluck('name','id');
         
-        return view('admin_blog.form',compact('input','id',$category_list));
+        $category_list=[];
+        $category_list=$this->category->getCategoryList()->toArray();//->pluck('name','id');        //$category_list=Category::orderBy('display_order','asc')->pluck('name','id');
+        
+        return view('admin_blog.form',compact('input','id','category_list'));
 
         
 
