@@ -60,7 +60,7 @@ $(function () {
                 .removeClass()
                 .addClass('alert alert-success show');
             // 少しせこいが、リロードして変更が反映された画面を表示する
-            location.reload();
+         //   location.reload();  
 
         })
 　　.fail(function(xhr, textStatus, errorThrown) {
@@ -105,7 +105,7 @@ $(function () {
                 .removeClass()
                 .addClass('alert alert-success show');
             // リロード
-            location.reload();
+          //  location.reload();    
 
         }).fail(function(xhr, textStatus, errorThrown) {
             // エラー時 エラーメッセージ表示
@@ -114,4 +114,8 @@ $(function () {
                 .addClass('alert alert-danger show');
         });
     });
+    
+    $('#categoryModal').on('hidden.bs.modal', function () {
+    location.reload();
+});
 });

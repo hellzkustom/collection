@@ -52,6 +52,7 @@
                     <p>記事がありません。</p>
                 @endif
             </div>
-        </div>
+        </div><br><a href="{{ route('front_index') }}">トップに戻る</a><br><br>
+
     </div>
 @endsection

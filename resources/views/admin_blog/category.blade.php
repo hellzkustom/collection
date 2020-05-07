@@ -52,6 +52,8 @@
 
             </div>
         </div>
+       <br><a href="{{ route('admin_list') }}">リストに戻る</a><br><br>
+ 
     </div>
     
     <!-- モーダル・ダイアログ -->
@@ -87,7 +89,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+            
                     <button type="button" id="category_delete" class="btn btn-danger">削除</button>
                     <button type="button" id="category_submit" class="btn btn-primary">保存</button>
                     <input type="hidden" name="category_id">

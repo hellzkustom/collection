@@ -103,9 +103,11 @@ class AdminBlogController extends Controller
       {
         $id=$request->input('id');
         
+
+         Article::where('category_id', $id) ->update(['category_id' => '1']);
          
          $this->category->destroy($id);
-          
+         
           return response()->json();
           
       }
