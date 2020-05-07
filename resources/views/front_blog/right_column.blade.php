@@ -10,7 +10,7 @@
                     <li>
                         <a href="{{ route('front_index', ['category_id' => $category->id,]) }}">
                             {{ $category->name }}
-                        </a>
+                        </a>            
                     </li>
                 @empty
                     <p>カテゴリーがありません</p>

@@ -16,6 +16,10 @@
                 <a href="{{ route('admin_form') }}">
                     <span class="btn btn-primary btn-sm">新規記事作成</span>
                 </a>
+                
+                                <a href="{{ route('admin_category') }}">
+                    <span class="btn btn-primary btn-sm">カテゴリ編集</span>
+                </a>
                 <br>
 
                 @if (count($list) > 0)

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('/', 'FrontBlogController@index')->name('front_index');
-
+Route::get('/home', 'FrontBlogController@home')->name('front_home');
 
 Route::prefix('admin')->group(function(){
     Route::get('form/{id?}','AdminBlogController@form')->name('admin_form');

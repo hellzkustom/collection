@@ -51,6 +51,7 @@
 	       @endforeach
         @endif
         </select>
+
         <br><br>
     <input type="submit" value="送信">
     {{--article_id があるか無いかで新規作成か既存編集かを区別する--}}
