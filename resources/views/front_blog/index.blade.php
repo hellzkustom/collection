@@ -2,12 +2,12 @@
 @section('title', '私のブログ')
 
 @section('main')
-<div class="col-sm-9 text-right">
+<div class="col-md-8 text-right">
 <a href="/login">管理</a>
 </div>
 <br>
 
-            <div class="col-sm-9 col-md-offset-1">
+            <div class="col-md-7 col-md-offset-1">
                 {{--forelse ディレクティブを使うと、データがあるときはループし、無いときは @empty 以下を実行する--}}
                 @forelse($list as $article)
                 <div class="panel panel-default">

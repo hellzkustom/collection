@@ -53,6 +53,7 @@ $(function () {
             type : 'POST',
             url : 'category/edit',
             data : data,
+            dataType: 'json',
         }).done(function(data, textStatus, jqXHR) {
     
             // 正常時 結果表示
@@ -62,18 +63,19 @@ $(function () {
             // 少しせこいが、リロードして変更が反映された画面を表示する
          //   location.reload();  
 
+
         })
 　　.fail(function(xhr, textStatus, errorThrown) {
     
 
-            var error_message = '入力の不適切な項目があります';
-
-            //$.each(data.responseJSON.errors, function(element, message_array) {
-              //  $.each(message_array, function(index, message) {
+            var error_message = '';
+            
+            $.each(xhr.responseJSON.errors, function(element, message_array) {
+                $.each(message_array, function(index, message) {
                     
-                //    error_message += message + '<br>';
-                //})
-            //});
+                  error_message += message + '<br>';
+               });
+            });
             
 
              //エラーメッセージ表示
