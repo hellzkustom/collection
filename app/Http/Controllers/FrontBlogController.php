@@ -8,6 +8,7 @@ use App\Category;
 use Illuminate\Support\Arr;
 use App\Http\Requests\FrontBlogRequest;
 use Carbon\Carbon;
+use App\User;
 
 class FrontBlogController extends Controller
 {
@@ -36,7 +37,9 @@ class FrontBlogController extends Controller
        $month_list=self::getMonthList();
         $category_list=self::getCatgoryList();
         
-        return view('front_blog.index',compact('list','month_list','category_list'));
+        $introduction =User::find(1);
+        
+        return view('front_blog.index',compact('list','month_list','category_list','introduction'));
     }
     
     public function getCatgoryList()

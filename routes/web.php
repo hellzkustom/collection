@@ -26,9 +26,14 @@ Route::prefix('admin')->group(function(){
     Route::post('delete', 'AdminBlogController@delete')->name('admin_delete');
     Route::get('list','AdminBlogController@list')->name('admin_list');
 
-Route::get('category', 'AdminBlogController@category')->name('admin_category');
+    Route::get('category', 'AdminBlogController@category')->name('admin_category');
     Route::post('category/edit', 'AdminBlogController@editCategory')->name('admin_category_edit');
     Route::post('category/delete', 'AdminBlogController@deleteCategory')->name('admin_category_delete');
+
+    Route::get('introduction','AdminBlogController@introduction')->name('admin_introduction');
+    Route::post('introduction/edit','AdminBlogController@editIntroduction')->name('admin_introduction_edit');
+
+    
 });
 
 Auth::routes();

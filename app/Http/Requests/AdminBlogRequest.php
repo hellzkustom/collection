@@ -51,6 +51,13 @@ class AdminBlogRequest extends FormRequest
         'id'=>'required|integer|min:0',    
         ];
         
+        $rules['editIntroduction']=[
+          'id'=>'required|min:1|integer',
+          'name'=>'required|string|max:255',
+          'comment'=>'required|string|max:255',
+            
+        ];
+        
         
         return Arr::get($rules, $action, []);
     }
@@ -85,6 +92,15 @@ class AdminBlogRequest extends FormRequest
             'display_order.required'=>'表示順は必須です',
             'display_order.integer'=>'表示順は整数を入力してください',
             'display_order.min'=>'表示順は1以上を入力してください',
+            
+            'name.required'=>'nameは必須です',
+            'name.string'=>'nameは文字列を入力してください',
+            'name.max'=>'nameは:max文字以内で入力してください',
+
+            'comment.required'=>'commentは必須です',
+            'comment.string'=>'commentは文字列を入力してください',
+            'comment.max'=>'commentは:max文字以内で入力してください',
+
         ];
     }
         public function getCurrentAction()
@@ -100,7 +116,7 @@ class AdminBlogRequest extends FormRequest
     {
         $action=$this->getCurrentAction();
         
-        if($action=='post'||$action=='delete')
+        if($action=='post'||$action=='delete'|| $action=='editIntroduction')
         {
             parent::failedValidation($validator);
         }

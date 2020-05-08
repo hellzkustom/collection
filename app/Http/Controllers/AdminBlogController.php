@@ -7,6 +7,8 @@ use Illuminate\Support\Arr;
 use App\Http\Requests\AdminBlogRequest;
 use App\Article;
 use App\Category;
+use App\User;
+use Auth;
 
 class AdminBlogController extends Controller
 {
@@ -45,10 +47,11 @@ class AdminBlogController extends Controller
 
     }
     
-    function __construct(Article $article,Category $category)
+    function __construct(Article $article,Category $category, User $user)
     {
         $this->article=$article;
         $this->category=$category;
+        $this->user=$user;
     }
     
     public function post(AdminBlogRequest $request)
@@ -80,6 +83,8 @@ class AdminBlogController extends Controller
     {
         //$list=$this->article->getArticleList(self::NUM_PER_PAGE);
         $list=Article::orderby('id','desc')->paginate(self::NUM_PER_PAGE);
+    
+        
         return view('admin_blog.list',compact('list'));
     }
     
@@ -111,5 +116,34 @@ class AdminBlogController extends Controller
           return response()->json();
           
       }
+      
+        public function introduction()
+    {
+        
+    
+           $input=User::find(Auth::id());
+
+    
+        return view('admin_blog.introduction',compact('input'));
+
+
+    }
+    
+         public function editIntroduction(AdminBlogRequest $request)
+    {
+        
+    
+           $id=Auth::id();
+            
+        User::where('id', Auth::id()) ->update(['name'=>$request->name,'comment'=>$request->comment]);
+ 
+        
+        
+        return redirect()->route('admin_introduction')->with('message','変更を保存しました');
+
+
+    }
+   
+  
     
 }

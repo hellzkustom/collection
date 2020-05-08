@@ -1,11 +1,24 @@
 {{--右カラム--}}
 <div class="col-md-3">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">自己紹介</h3>
+        </div>
+        <div class="list-group">
+            <li class="list-group-item">
+                <div>name:{{$introduction['name']}}</div>
+                <div>comment:{{$introduction['comment']}}</div>
+</li>
+                
+            
+        </div>
+    </div>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">カテゴリー</h3>
         </div>
         <div class="panel-body">
-            <ul class="monthly_archive">
+            <ul class="category_archive">
                 @forelse($category_list as $category)
                     <li>
                         <a href="{{ route('front_index', ['category_id' => $category->id,]) }}">

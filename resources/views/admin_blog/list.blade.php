@@ -20,6 +20,14 @@
                                 <a href="{{ route('admin_category') }}">
                     <span class="btn btn-primary btn-sm">カテゴリ編集</span>
                 </a>
+   
+                  </a>
+                
+                                <a href="{{ route('admin_introduction') }}">
+                    <span class="btn btn-primary btn-sm">自己紹介編集</span>
+                </a>
+ 
+                
                 <br>
 
                 @if (count($list) > 0)
