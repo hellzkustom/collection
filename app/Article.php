@@ -16,7 +16,7 @@ class Article extends Model
     
         public function getPostDateTextAttribute()
     {
-        return $this->post_date->format('Y/m/d');
+        return $this->post_date->format('Y-m-d');
     }
 
     /**

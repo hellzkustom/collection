@@ -6,8 +6,14 @@
         </div>
         <div class="list-group">
             <li class="list-group-item">
-                <div>name:{{$introduction['name']}}</div>
-                <div>comment:{{$introduction['comment']}}</div>
+                <div><span class="name_space">name</span>:{{$introduction['name']}}</div>
+                
+                    <div class="comment">comment:</div> 
+                    <div class="comment">{!!nl2br(e($introduction['comment']))!!}</div>
+                
+
+
+
 </li>
                 
             

@@ -29,7 +29,7 @@
     <input class="form_control" name="name" value="{{isset($input['name']) ? $input['name'] : null}}" placeholder="nameを入力して下さい。"><br><br>
 
     comment<br>
-    <textarea class="form_control" cols="50" rows="15" name="comment" placeholder="commnetを入力してください。">{{isset($input['comment']) ? $input['comment']: null}}</textarea><br><br>
+    <textarea class="form_control" cols="50" rows="2" name="comment" placeholder="commnetを入力してください。">{{isset($input['comment']) ? $input['comment']: null}}</textarea><br><br>
 
         <br><br>
     <input type="submit" value="送信">

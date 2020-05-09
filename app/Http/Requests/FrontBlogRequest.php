@@ -24,6 +24,7 @@ class FrontBlogRequest extends FormRequest
     public function rules()
     {
         return [
+            'id'=>'integer|min:1',
             'year'=>'integer',
             'month'=>'integer',
             'category_id'=>'integer|min:1',
@@ -36,6 +37,11 @@ class FrontBlogRequest extends FormRequest
             'month.ineger'=>'月は整数を入れてください',
             'category_id.ineger'=>'カテゴリIDは整数にしてください',
             'category_id.min'=>'カテゴリIDは1以上にしてください',
+            
+            'id.ineger'=>'IDは整数にしてください',
+            'id.min'=>'IDは1以上にしてください',
+            
+            
         ];
         
     }

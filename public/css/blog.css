@@ -22,3 +22,22 @@ input[name="title"] {
 textarea[name="body"] {
     width: 400px;
 }
+.comment{
+display: table-cell;    
+}
+
+.name_space{
+    margin-right: 1.75em;
+}
+
+.set_body{
+    width:23em;
+    height:3em;
+    overflow: hidden;
+}
+
+.multiline-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:2 ;
+}

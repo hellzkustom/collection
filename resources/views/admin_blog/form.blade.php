@@ -25,7 +25,7 @@
     
     <form method="POST" action="{{route('admin_post')}}">
     日付<br>
-    <input class="form_control"  type="date" name="post_date" size="20" value="{{isset($input['post_date']) ? str_replace('/','-',$input['post_date']):null}}" placeholder="日付を入力して下さい。"><br><br>
+    <input class="form_control"  type="date" name="post_date" size="20" value="{{isset($input['post_date']) ? $input['post_date']:null}}" placeholder="日付を入力して下さい。"><br><br>
 
     タイトル<br>
     <input class="form_control" name="title" value="{{isset($input['title']) ? $input['title'] : null}}" placeholder="タイトルを入力して下さい。"><br><br>

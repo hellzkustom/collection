@@ -49,10 +49,9 @@
                     <br>
                     <p>カテゴリがありません。</p>
                 @endif
-
+                  <br><a href="{{ route('admin_list') }}">リストに戻る</a><br><br>
             </div>
         </div>
-       <br><a href="{{ route('admin_list') }}">リストに戻る</a><br><br>
  
     </div>
     

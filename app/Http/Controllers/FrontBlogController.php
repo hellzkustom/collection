@@ -17,11 +17,11 @@ class FrontBlogController extends Controller
     protected $article;
     protected $category;
     
-        function __construct(Article $article, Category $category)
-    {
-        $this->article = $article;
-        $this->category = $category;
-    }
+ //       function __construct(Article $article, Category $category)
+ //   {
+ //       $this->article = $article;
+ //       $this->category = $category;
+ //   }
 
     
    public function index(FrontBlogRequest $request)
@@ -104,5 +104,21 @@ class FrontBlogController extends Controller
       }
         
         return $month_list;
+    }
+    
+    public function article(FrontBlogRequest $request)
+    {
+        
+        
+        $article=Article::find($request->id);
+        $month_list=self::getMonthList();
+        $category_list=self::getCatgoryList();
+        
+        $introduction =User::find(1);
+        
+        
+        return view('front_blog.article',compact('article','month_list','category_list','introduction'));
+        
+        
     }
 }

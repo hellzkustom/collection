@@ -2,29 +2,17 @@
 @section('title', '私のブログ')
 
 @section('main')
-<div class="col-md-8 text-right">
-<a href="/login">管理</a>
-</div>
-<br>
-
-            <div class="col-md-7 col-md-offset-1">
-                {{--forelse ディレクティブを使うと、データがあるときはループし、無いときは @empty 以下を実行する--}}
-                @forelse($list as $article)
-                <div class="panel panel-default">
+        <div class="col-md-7 col-md-offset-1">
+            <div class="panel panel-default">
                     <div class="panel-heading">
                         {{--post_date は日付ミューテタに設定してあるので、自動的に Carbon インスタンスにキャストされる--}}
-                        <a href="{{ route('front_article', ['id' => $article->id]) }}">
-                            <h3 class="panel-title">{{ $article->post_date->format('Y/m/d(D)') }}　{{ $article->title }}</h3>
-                        </a>
+                        <h3 class="panel-title">{{ $article->post_date->format('Y/m/d(D)') }}　{{ $article->title }}</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="set_body">
-                            <p class="multiline-text">
                             {{--nl2br 関数で改行文字を <br> に変換する。これをエスケープせずに表示させるため {!! !!} で囲む--}}
                             {{--ただし、このまま出力するととても危険なので e 関数で htmlspecialchars 関数を通しておく--}}
                             {!! nl2br(e($article->body)) !!}
-                            </p>
-                        </div>
+                            
                     </div>
                     <div class="panel-footer text-right">
                                             <a href="{{ route('front_index', ['category_id' => $article->category_id]) }}">
@@ -35,11 +23,19 @@
                         {{--updated_at も日付ミューテタに設定してあるので Carbon インスタンスにキャストされる--}}
                         {{ $article->updated_at->format('Y/m/d H:i:s') }}
                     </div>
-                </div>
-                @empty
-                    <p>記事がありません</p>
-                @endforelse
-
-                {{ $list->links() }}
             </div>
+        </div>
+                
+
+
+
+
+
+
+
+
+
+
+
+
 @endsection

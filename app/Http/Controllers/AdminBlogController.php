@@ -30,6 +30,7 @@ class AdminBlogController extends Controller
         if($article){
             $input=$article->toArray();
             $input['post_date']=$article->post_date_text;
+        
         }
         else{
             $id=null;
@@ -39,7 +40,7 @@ class AdminBlogController extends Controller
         
         
         $category_list=[];
-        $category_list=$this->category->getCategoryList()->toArray();//->pluck('name','id');        //$category_list=Category::orderBy('display_order','asc')->pluck('name','id');
+        $category_list=Category::getCategoryList()->toArray();//->pluck('name','id');        //$category_list=Category::orderBy('display_order','asc')->pluck('name','id');
         
         return view('admin_blog.form',compact('input','id','category_list'));
 
@@ -47,12 +48,12 @@ class AdminBlogController extends Controller
 
     }
     
-    function __construct(Article $article,Category $category, User $user)
-    {
-        $this->article=$article;
-        $this->category=$category;
-        $this->user=$user;
-    }
+    //function __construct(Article $article,Category $category, User $user)
+    //{
+      //  $this->article=$article;
+    //    $this->category=$category;
+     //   $this->user=$user;
+    //}
     
     public function post(AdminBlogRequest $request)
     {
@@ -62,7 +63,10 @@ class AdminBlogController extends Controller
        $id=Arr::get($input,'id');
       
     
-       $article = $this->article->updateOrCreate(compact('id'), $input);
+       //$article = $this->article->updateOrCreate($request-i, $input);
+       
+        $article = Article::updateOrCreate(compact('id'), $input);
+    
     
         return redirect()->route('admin_form',  ['id' => $article->id])->with('message','記事を保存しました');
         
@@ -70,9 +74,12 @@ class AdminBlogController extends Controller
         public function delete(AdminBlogRequest $request)
     {
         // 記事IDの取得
-        $id = $request->input('id');
+       // $id = $request->input('id');
 
-        $result = $this->article->destroy($id);
+    
+    //    $result = $this->article->destroy($request->id);
+          $result = Article::destroy($request->id);
+      
         $message = ($result) ? '記事を削除しました' : '記事の削除に失敗しました。';
 
         // フォーム画面へリダイレクト
@@ -90,28 +97,33 @@ class AdminBlogController extends Controller
     
     public function category()
     {
-        $list=$this->category->getCategoryList(self::NUM_PER_PAGE);
+        //$list=$this->category->getCategoryList(self::NUM_PER_PAGE);
+        $list=Category::getCategoryList(self::NUM_PER_PAGE);
+        
         return view('admin_blog.category',compact('list'));
     }
     
     public function editCategory(AdminBlogRequest $request)
     {
         $input=$request->input();
-         $id=Arr::get($input,'id');
+         $id=$request->id;//;Arr::get($input,'id');
      
-        $category=$this->category->updateOrCreate(compact('id'),$input);
+      //  $category=$this->category->updateOrCreate(compact('id'),$input);
+        $category=Category::updateOrCreate(compact('id'),$input);
+
         
         return response()->json($category);
     }
   
       public function deleteCategory(AdminBlogRequest $request)
       {
-        $id=$request->input('id');
+       // $id=$request->input('id');
         
 
-         Article::where('category_id', $id) ->update(['category_id' => '1']);
+         Article::where('category_id', $request->id) ->update(['category_id' => '1']);
          
-         $this->category->destroy($id);
+       //  $this->category->destroy($request->id);
+           Category::destroy($request->id);
          
           return response()->json();
           

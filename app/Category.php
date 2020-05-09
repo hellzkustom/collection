@@ -12,7 +12,7 @@ class Category extends Model
     protected $fillable=['name','display_order'];
     protected $dates=['deleted_at','created_at','updated_at'];
     
-    public function getCategoryList(int $num_per_page=0, string $order='display_order', string $direction ='asc')
+    public static function getCategoryList(int $num_per_page=0, string $order='display_order', string $direction ='asc')
     {
         $query=self::orderBy($order,$direction);
         if($num_per_page)
