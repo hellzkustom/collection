@@ -28,7 +28,7 @@ class FrontBlogController extends Controller
     {
         $input=$request->input();
         
-        $list=Article::orderby('id','desc')->paginate(self::NUM_PER_PAGE);
+        $list=Article::with(['comment'])->orderby('id','desc')->paginate(self::NUM_PER_PAGE);
         
            $list = self::getArticleList(self::NUM_PER_PAGE, $input);
            
@@ -121,4 +121,19 @@ class FrontBlogController extends Controller
         
         
     }
+    public function commentPost(FrontBlogRequest $request)
+    {
+ 
+       $article=Article::findOrFail($request->id);
+ 
+        $article->comment()->create($request->toArray());
+ 
+        return response()->json();
+       
+        
+    }
+    
+    
+    
+    
 }

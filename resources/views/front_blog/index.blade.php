@@ -28,12 +28,25 @@
                     </div>
                     <div class="panel-footer text-right">
                                             <a href="{{ route('front_index', ['category_id' => $article->category_id]) }}">
-                        {{ $article->category->name}}
+                        {{$article->category->name}}
                     </a>
                         
                                             &nbsp;&nbsp;
                         {{--updated_at も日付ミューテタに設定してあるので Carbon インスタンスにキャストされる--}}
                         {{ $article->updated_at->format('Y/m/d H:i:s') }}
+                    
+                                           @if ($article->comment->count())
+                            <span class="">
+                                コメント {{ $article->comment->count() }}件
+                            </span>
+                        @else
+                            <span class="">
+                                コメントなし
+                            </span>
+                        @endif
+
+                    
+                    
                     </div>
                 </div>
                 @empty
