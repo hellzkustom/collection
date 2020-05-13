@@ -1,12 +1,29 @@
-@extends('front_blog.app')
+@extends('app')
 @section('title', '私のブログ')
 
 @section('head')
     {{--jQuery は下記のファイルに記述し読み込むようにする--}}
+    <script src="{{ asset('/js/ajax.js') }}"></script>
     <script src="{{ asset('/js/comment.js') }}"></script>
 @endsection
 
-@section('main')
+@section('body')
+    <div class="container">
+        
+          <div class="row" name="main">
+            <div class="col-md-10 col-md-offset-1">
+                <h2><a href="{{ route('front_index') }}">私のブログ</a></h2>
+             @include('error')
+            </div>
+        </div>
+
+<div class="col-md-8 text-right">
+    @if(Auth::check())
+        <a href="{{ route('admin_form', ['id' => $article->id]) }}">編集</a>
+    @endif
+</div>
+<br>
+
         <div class="col-md-7 col-md-offset-1">
             <div class="panel panel-default">
                     <div class="panel-heading">
@@ -50,10 +67,9 @@
                     </div>
             </div>
 
-    
-
 </div>
-
+            @include('front_blog.right_column')
+            </div>
 <!-- モーダル・ダイアログ -->
     <div class="modal fade" id="commentModal" tabindex="-1">
         <div class="modal-dialog">
@@ -102,6 +118,8 @@
 
 
 
+            
+            
 
 
 

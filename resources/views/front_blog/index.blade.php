@@ -1,8 +1,16 @@
-@extends('front_blog.app')
+@extends('app')
 @section('title', '私のブログ')
 
-@section('main')
-<div class="col-md-8 text-right">
+@section('body')
+
+    <div class="container">
+          <div class="row" name="main">
+            <div class="col-md-10 col-md-offset-1">
+                <h2><a href="{{ route('front_index') }}">私のブログ</a></h2>
+                      @include('error')
+            </div>
+        </div>
+ <div class="col-md-8 text-right">
 <a href="/login">管理</a>
 </div>
 <br>
@@ -54,5 +62,7 @@
                 @endforelse
 
                 {{ $list->links() }}
+            </div>
+            @include('front_blog.right_column')
             </div>
 @endsection

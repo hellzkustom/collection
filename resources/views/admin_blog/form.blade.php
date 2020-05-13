@@ -1,6 +1,9 @@
-@extends('admin_blog.app')
+@extends('app')
 @section('title','ブログ記事投稿フォーム')
 @section('body')
+    <div class="container">
+        <div class="row" name="main">
+            <div class="col-md-10 col-md-offset-1">
     <h2>ブログ記事投稿・編集</h2>
 
     @if(session('message'))
@@ -10,18 +13,7 @@
         
         </div>
     @endif
-    
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                <li>
-                    {{$error}}
-                </li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+@include('error')
     
     <form method="POST" action="{{route('admin_post')}}">
     日付<br>
@@ -69,5 +61,8 @@
             @endif
                     <br><a href="{{ route('admin_list') }}">リストに戻る</a><br><br>
 
+        </div>
+    </div>
+</div>    
 @endsection
 

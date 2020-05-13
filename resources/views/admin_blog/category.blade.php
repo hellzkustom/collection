@@ -1,17 +1,19 @@
-@extends('admin_blog.app')
+@extends('app')
 @section('title', 'カテゴリ一覧')
 
 @section('head')
     {{--jQuery は下記のファイルに記述し読み込むようにする--}}
-    <script src="{{ asset('/js/category.js') }}"></script>
+
+        <script src="{{ asset('/js/ajax.js') }}"></script>    
+    <script src="{{ asset('/js/category.js') }}"></script>    
 @endsection
 
 @section('body')
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+        <div class="row" name="main">
+            <div class="col-md-10 col-md-offset-1">
                 <h2>カテゴリ一覧</h2>
-                
+
                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#categoryModal">
                     登録
                 </button>
@@ -93,8 +95,7 @@
                     <button type="button" id="category_submit" class="btn btn-primary">保存</button>
                     <input type="hidden" name="category_id">
                 </div>
-
-            </div>
         </div>
     </div>
+</div>
 @endsection

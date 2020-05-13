@@ -1,9 +1,9 @@
-@extends('admin_blog.app')
+@extends('app')
 @section('title','ブログ記事一覧')
 @section('body')
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+        <div class="row" name="main">
+            <div class="col-md-10 col-md-offset-1">
                 <h2>ブログ記事一覧</h2>
 
                 @if (session('message'))
@@ -12,7 +12,7 @@
                     </div>
                     <br>
                 @endif
-
+                <div class="col-md-12">
                 <a href="{{ route('admin_form') }}">
                     <span class="btn btn-primary btn-sm">新規記事作成</span>
                 </a>
@@ -31,8 +31,7 @@
                 <br>
 
                 @if (count($list) > 0)
-                    <br>
-
+                <br>
                     {{--links メソッドでページングが生成される。しかも生成されるHTMLは Bootstrap と互換性がある--}}
                     {{ $list->links() }}
                     <table class="table table-striped">

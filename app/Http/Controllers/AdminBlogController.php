@@ -22,7 +22,6 @@ class AdminBlogController extends Controller
     {
         
         
-     // $article =$this->article->find('$id');
        $article=Article::find($id);
        
         
@@ -44,16 +43,9 @@ class AdminBlogController extends Controller
         
         return view('admin_blog.form',compact('input','id','category_list'));
 
-        
+
 
     }
-    
-    //function __construct(Article $article,Category $category, User $user)
-    //{
-      //  $this->article=$article;
-    //    $this->category=$category;
-     //   $this->user=$user;
-    //}
     
     public function post(AdminBlogRequest $request)
     {
@@ -62,10 +54,7 @@ class AdminBlogController extends Controller
         
        $id=Arr::get($input,'id');
       
-    
-       //$article = $this->article->updateOrCreate($request-i, $input);
-       
-        $article = Article::updateOrCreate(compact('id'), $input);
+            $article = Article::updateOrCreate(compact('id'), $input);
     
     
         return redirect()->route('admin_form',  ['id' => $article->id])->with('message','記事を保存しました');
@@ -73,11 +62,7 @@ class AdminBlogController extends Controller
     }
         public function delete(AdminBlogRequest $request)
     {
-        // 記事IDの取得
-       // $id = $request->input('id');
-
-    
-    //    $result = $this->article->destroy($request->id);
+          $result = $this->article->destroy($request->id);
           $result = Article::destroy($request->id);
       
         $message = ($result) ? '記事を削除しました' : '記事の削除に失敗しました。';
@@ -88,7 +73,6 @@ class AdminBlogController extends Controller
 
     public function list()
     {
-        //$list=$this->article->getArticleList(self::NUM_PER_PAGE);
         $list=Article::orderby('id','desc')->paginate(self::NUM_PER_PAGE);
     
         
@@ -97,8 +81,7 @@ class AdminBlogController extends Controller
     
     public function category()
     {
-        //$list=$this->category->getCategoryList(self::NUM_PER_PAGE);
-        $list=Category::getCategoryList(self::NUM_PER_PAGE);
+    $list=Category::getCategoryList(self::NUM_PER_PAGE);
         
         return view('admin_blog.category',compact('list'));
     }
@@ -108,7 +91,6 @@ class AdminBlogController extends Controller
         $input=$request->input();
          $id=$request->id;//;Arr::get($input,'id');
      
-      //  $category=$this->category->updateOrCreate(compact('id'),$input);
         $category=Category::updateOrCreate(compact('id'),$input);
 
         
@@ -117,12 +99,10 @@ class AdminBlogController extends Controller
   
       public function deleteCategory(AdminBlogRequest $request)
       {
-       // $id=$request->input('id');
-        
+
 
          Article::where('category_id', $request->id) ->update(['category_id' => '1']);
          
-       //  $this->category->destroy($request->id);
            Category::destroy($request->id);
          
           return response()->json();

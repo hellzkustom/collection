@@ -1,6 +1,9 @@
-@extends('admin_blog.app')
+@extends('app')
 @section('title','自己紹介編集')
 @section('body')
+    <div class="container">
+        <div class="row" name="main">
+            <div class="col-md-10 col-md-offset-1">
     <h2>自己紹介編集</h2>
 
     @if(session('message'))
@@ -10,18 +13,8 @@
         
         </div>
     @endif
-    
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                <li>
-                    {{$error}}
-                </li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
+    @include('error')
     
     <form method="POST" action="{{route('admin_introduction_edit',['id' => 1])}}">
 
@@ -39,6 +32,8 @@
     {{ csrf_field() }}
 </form>
                     <br><a href="{{ route('admin_list') }}">リストに戻る</a><br><br>
-
+        </div>
+    </div>
+</div>
 @endsection
 

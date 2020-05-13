@@ -6,10 +6,10 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
+//use Illuminate\Http\Exceptions\HttpResponseException;
 
 
-class FrontBlogRequest extends FormRequest
+class FrontBlogRequest extends AdminBlogRequest//FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -77,30 +77,30 @@ class FrontBlogRequest extends FormRequest
           ];
         
     }
-        public function getCurrentAction()
-    {
+   //     public function getCurrentAction()
+//    {
         // 実行中のアクション名を取得
         // App\Http\Controllers\AdminBlogController@post のような返り値が返ってくるので @ で分割
-        $route_action = Route::currentRouteAction();
-        list(, $action) = explode('@', $route_action);
-        return $action;
-    }
+  //      $route_action = Route::currentRouteAction();
+    //    list(, $action) = explode('@', $route_action);
+      //  return $action;
+//    }
     
-    protected function failedValidation(Validator $validator)
-    {
-        $action=$this->getCurrentAction();
+ //   protected function failedValidation(Validator $validator)
+ //   {
+   //     $action=$this->getCurrentAction();
         
-        if($action=='article'||$action=='index')
-        {
-            parent::failedValidation($validator);
-        }
+     //   if($action=='article'||$action=='index')
+//        {
+  //          parent::failedValidation($validator);
+    //    }
         
         
 
-        $response['errors']=$validator->errors();
-        throw new HttpResponseException(
-            response()->json($response,422));
-    }
+//        $response['errors']=$validator->errors();
+      //  throw new HttpResponseException(
+  //          response()->json($response,422));
+//    }
     
     
     
