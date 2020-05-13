@@ -45,10 +45,23 @@
 
                             </h5>
                                 @forelse($article->comment->sortByDesc('id') as $comment)
-                                <div>
+                                <div  class="comment">
                                 {!! nl2br(e($comment->body)) !!}
                                 <br>
-                                投稿者{!! nl2br(e($comment->name)) !!}<br>投稿時間{!! nl2br(e($comment->updated_at)) !!}
+                                </div>
+                                <div>
+                                    <div class="comment">
+                                     <div class="box">   
+                                        投稿者{!! nl2br(e($comment->name)) !!}&nbsp;&nbsp;投稿時間{!! nl2br(e($comment->updated_at)) !!}
+                                    </div>
+                                    <div class="box">
+                                            <form method="POST"  action="{{route('commentDelete')}}">
+                                                <input type="hidden" name="id" value="{{$comment->id}}">
+                                                <input type="hidden" name="article_id" value="{{$article->id}}">
+                                            <input type="submit" value="削除">
+                                            </form>
+                                    </div>
+                                    </div>
                                 </div>
                                 @empty
                                     <p>コメントがありません</p>

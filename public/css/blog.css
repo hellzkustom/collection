@@ -41,3 +41,11 @@ display: table-cell;
     -webkit-box-orient: vertical;
     -webkit-line-clamp:2 ;
 }
+
+.box{
+float:left;
+margin: 10px;
+}
+.comment{
+ display:inline-block;
+}

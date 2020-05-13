@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 use App\Http\Requests\FrontBlogRequest;
 use Carbon\Carbon;
 use App\User;
+use App\Comment;
 
 class FrontBlogController extends Controller
 {
@@ -132,7 +133,16 @@ class FrontBlogController extends Controller
        
         
     }
-    
+    public function commentDelete(FrontBlogRequest $request)
+    {
+       $result = Comment::destroy($request->id);
+      
+        $message = ($result) ? '記事を削除しました' : '記事の削除に失敗しました。';
+
+        // フォーム画面へリダイレクト
+        return redirect()->route('front_article', ['id' => $request->article_id]);
+
+    }
     
     
     

@@ -62,8 +62,7 @@ class AdminBlogController extends Controller
     }
         public function delete(AdminBlogRequest $request)
     {
-          $result = $this->article->destroy($request->id);
-          $result = Article::destroy($request->id);
+         $result = Article::destroy($request->id);
       
         $message = ($result) ? '記事を削除しました' : '記事の削除に失敗しました。';
 

@@ -14,7 +14,7 @@
                 @endif
                 <div class="col-md-12">
                 <a href="{{ route('admin_form') }}">
-                    <span class="btn btn-primary btn-sm">新規記事作成</span>
+                    <span class="btn btn-primary btn-sm">新規記事</span>
                 </a>
                 
                                 <a href="{{ route('admin_category') }}">
@@ -36,7 +36,7 @@
                     {{ $list->links() }}
                     <table class="table table-striped">
                         <tr>
-                            <th width="120px">記事番号</th>
+                            
                             <th width="120px">日付</th>
                             <th>タイトル</th>
                         </tr>
@@ -44,7 +44,7 @@
                         {{--このまま foreach ループにかけることができる--}}
                         @foreach ($list as $article)
                             <tr>
-                                <td>{{ $article->id }}</td>
+                                
                                 <td>{{ $article->post_date_text }}</td>
                                 <td>
                                     <a href="{{ route('admin_form', ['id' => $article->id]) }}">
