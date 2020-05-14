@@ -10,9 +10,7 @@
                       @include('error')
             </div>
         </div>
- <div class="col-md-8 text-right">
-<a href="/login">管理</a>
-</div>
+
 <br>
 
             <div class="col-md-7 col-md-offset-1">

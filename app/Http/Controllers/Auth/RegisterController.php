@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -69,5 +70,20 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+    
+    
+    public function redirectPath()
+    {
+          if(Auth::user()->admin==true)
+          {
+            return 'admin/list';
+          }
+            else
+        {
+             return '/';   
+        
+        }
+        //例）return 'costs/index';
     }
 }

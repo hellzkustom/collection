@@ -17,7 +17,17 @@
 
 <body>
     
+     <div class="col-md-10 text-right">
+             @if(Auth::check())
+                <a href="/login">info</a>
+             @else
+                <a href="/login">login</a>
+            @endif
+                
+</div>
+    
                 @yield('body')
+                
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- BootstrapのJS読み込み -->

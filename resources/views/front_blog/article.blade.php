@@ -18,7 +18,7 @@
         </div>
 
 <div class="col-md-8 text-right">
-    @if(Auth::check())
+    @if(Auth::check() && Auth::user()->admin==true)
         <a href="{{ route('admin_form', ['id' => $article->id]) }}">編集</a>
     @endif
 </div>
