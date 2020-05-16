@@ -20,6 +20,7 @@
      <div class="col-md-10 text-right">
              @if(Auth::check())
                 <a href="/login">info</a>
+
              @else
                 <a href="/login">login</a>
             @endif

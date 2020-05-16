@@ -16,7 +16,7 @@
 
     @include('error')
     
-    <form method="POST" action="{{route('admin_introduction_edit',['id' => 1])}}">
+    <form method="POST" action="{{route('admin_introduction_edit')}}">
 
     name<br>
     <input class="form_control" name="name" value="{{isset($input['name']) ? $input['name'] : null}}" placeholder="nameを入力して下さい。"><br><br>
@@ -31,7 +31,15 @@
     {{--CSRFトークンが生成される--}}
     {{ csrf_field() }}
 </form>
+@if(Auth::user()->admin==true)
                     <br><a href="{{ route('admin_list') }}">リストに戻る</a><br><br>
+@else
+
+
+<br><a href="{{ route('front_index') }}">トップに戻る</a><br><br>
+
+
+@endif
         </div>
     </div>
 </div>

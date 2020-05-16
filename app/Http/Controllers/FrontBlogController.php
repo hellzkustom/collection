@@ -128,7 +128,8 @@ class FrontBlogController extends Controller
        $article=Article::findOrFail($request->id);
  
         $article->comment()->create($request->toArray());
- 
+
+
         return response()->json();
        
         
@@ -137,7 +138,7 @@ class FrontBlogController extends Controller
     {
        $result = Comment::destroy($request->id);
       
-        $message = ($result) ? '記事を削除しました' : '記事の削除に失敗しました。';
+        $message = ($result) ? 'コメントを削除しました' : 'の削除に失敗しました。';
 
         // フォーム画面へリダイレクト
         return redirect()->route('front_article', ['id' => $request->article_id]);

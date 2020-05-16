@@ -52,7 +52,7 @@ class LoginController extends Controller
           }
           else
         {
-        return '/';   
+        return route('admin_introduction');
         
      }
         //例）return 'costs/index';

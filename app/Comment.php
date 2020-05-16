@@ -10,7 +10,7 @@ class Comment extends Model
 {
       use SoftDeletes;
     protected $primaryKey='id';
-    protected $fillable=['name','body'];
+    protected $fillable=['name','body','article_id','user_id'];
     protected $dates=['deleted_at','created_at','updated_at'];
 
        public function getPostDateTextAttribute()
@@ -21,6 +21,10 @@ class Comment extends Model
           public function article()
         {
           return $this->belongsTo('App\Article');
+      }
+      public function user()
+      {
+          return $this->belongsTo('App\User');
       }
 
 

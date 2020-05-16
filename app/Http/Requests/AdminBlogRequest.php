@@ -52,7 +52,7 @@ class AdminBlogRequest extends FormRequest
         ];
         
         $rules['editIntroduction']=[
-          'id'=>'required|min:1|integer',
+         // 'id'=>'required|min:1|integer',
           'name'=>'required|string|max:255',
           'comment'=>'required|string|max:255',
             

@@ -106,6 +106,7 @@ class webApi_comment_edit extends webApi{
             id          : article_id,
             name        : $('input[name=name]').val(),
             body        : $('textarea[name=body]').val(),
+            user_id     :$('input[name=user_id]').val(),
             
         };
         return data;
@@ -141,6 +142,7 @@ class webApi_comment_edit extends webApi{
 
     function ajax_action(obj)
     {
+        
         // APIを呼び出してDBに保存
         $.ajax({
             headers: {

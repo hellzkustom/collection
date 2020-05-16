@@ -39,11 +39,14 @@
                                     {{--ただし、このまま出力するととても危険なので e 関数で htmlspecialchars 関数を通しておく--}}
                                     {!! nl2br(e($article->body)) !!}
                                             <br><br>
-                                       <h5> <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#commentModal">
-                                            コメント
-                                        </button>
-
-                            </h5>
+                                       <h5>
+                                            @if(Auth::check())
+                                            
+                                                   <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#commentModal">コメント</button>
+                                            @else
+                                                    コメント
+                                            @endif
+                                        </h5>
                                 @forelse($article->comment->sortByDesc('id') as $comment)
                                 <div  class="comment">
                                 {!! nl2br(e($comment->body)) !!}
@@ -54,6 +57,7 @@
                                      <div class="box">   
                                         投稿者{!! nl2br(e($comment->name)) !!}&nbsp;&nbsp;投稿時間{!! nl2br(e($comment->updated_at)) !!}
                                     </div>
+                                    @if($comment->user_id==Auth::id())
                                     <div class="box">
                                             <form method="POST"  action="{{route('commentDelete')}}">
                                                 <input type="hidden" name="id" value="{{$comment->id}}">
@@ -61,6 +65,7 @@
                                             <input type="submit" value="削除">
                                             </form>
                                     </div>
+                                    @endif
                                     </div>
                                 </div>
                                 @empty
@@ -83,6 +88,7 @@
 </div>
             @include('front_blog.right_column')
             </div>
+
 <!-- モーダル・ダイアログ -->
     <div class="modal fade" id="commentModal" tabindex="-1">
         <div class="modal-dialog">
@@ -103,7 +109,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 ">コメント投稿者</label>
                              <div class="col-sm-10">
-                                 <input class="form_control" name="name" value="" placeholder="名前を入力して下さい。"><br><br>
+                                 <input class="form_control" name="name" readonly="readonly" value="{{isset(Auth::user()->name) ? Auth::user()->name:null}}" placeholder="名前を入力して下さい。"><br><br>
                             </div>
                         </div>
                         <div class="form-group">
@@ -120,14 +126,16 @@
             
 
                     <button type="button" id="comment_submit" class="btn btn-primary">投稿</button>
-                   <input type="hidden" name="article_id" value="{{ $article->id }}">
+                   <input type="hidden" name="article_id" value="{{ isset($article)? $article->id:null }}">
+                   <input type="hidden" name="user_id" value="{{Auth::id()}}">
 
                 </div>
 
             </div>
         </div>
     </div>
-
+   
+    
 
 
 

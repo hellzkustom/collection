@@ -27,7 +27,7 @@ class RedirectIfAuthenticated
             }
             else
             {
-             return redirect(RouteServiceProvider::HOME);   
+             return redirect(route('admin_introduction'));   
             }
         }
 
