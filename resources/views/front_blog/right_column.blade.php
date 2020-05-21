@@ -1,23 +1,24 @@
 {{--右カラム--}}
 <div class="col-md-3">
-        <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">自己紹介</h3>
-        </div>
-        <div class="list-group">
-            <li class="list-group-item">
-                <div><span class="name_space">name</span>:{{$introduction['name']}}</div>
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h3 class="panel-title">自己紹介</h3>
+            </div>
+        
+            <div class="list-group">
                 
+                
+            @if(isset($introduction->image_user->name))
+               <div class="div_img_intro">
+                 <img src="{{ asset('/storage/app/'.$introduction->image_user->name)  }}" width="96" heigh"96"/>
+              </div>
+           @endif
+                <li class="list-group-item list_intro">
+                    <div><span class="name_space">name</span>:{{$introduction['name']}}</div>
                     <div class="comment">comment:</div> 
                     <div class="comment">{!!nl2br(e($introduction['comment']))!!}</div>
-                
-
-
-
-</li>
-                
-            
-        </div>
+                </li>
+            </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">

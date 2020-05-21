@@ -32,7 +32,7 @@
                     </div>
                             <div class="panel-body">
 
-                            <h5>本文</h5>
+                                           @include("image_view_index")  
                                                         
                                 
                                    {{--nl2br 関数で改行文字を <br> に変換する。これをエスケープせずに表示させるため {!! !!} で囲む--}}

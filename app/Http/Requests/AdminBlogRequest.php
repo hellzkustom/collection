@@ -58,6 +58,13 @@ class AdminBlogRequest extends FormRequest
             
         ];
         
+        $rules['postImg']=[
+
+               'name' => 'required|file',//|image|mimes:jpeg,png,jpg,gif'
+
+
+        ];
+        
         
         return Arr::get($rules, $action, []);
     }
@@ -101,6 +108,13 @@ class AdminBlogRequest extends FormRequest
             'comment.string'=>'commentは文字列を入力してください',
             'comment.max'=>'commentは:max文字以内で入力してください',
 
+          //    'image_file_name.required'=>'ファイルを選択してください',
+             // 'image_file_name.file'=>'アップロードに失敗しました',
+        
+          //  'image_file_name.mimes'=>'形式は、jpeg,gif,pngです。',
+        //    'name.image'=>'画像ファイルを選択してください。',
+
+
         ];
     }
         public function getCurrentAction()
@@ -116,7 +130,7 @@ class AdminBlogRequest extends FormRequest
     {
         $action=$this->getCurrentAction();
         
-        if($action=='post'||$action=='delete'|| $action=='editIntroduction')
+        if($action=='post'||$action=='delete'|| $action=='editIntroduction'|| $action=='postImg')
         {
             parent::failedValidation($validator);
         }

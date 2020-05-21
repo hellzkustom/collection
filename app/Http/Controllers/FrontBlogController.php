@@ -10,6 +10,7 @@ use App\Http\Requests\FrontBlogRequest;
 use Carbon\Carbon;
 use App\User;
 use App\Comment;
+use App\Image;
 
 class FrontBlogController extends Controller
 {
@@ -39,6 +40,7 @@ class FrontBlogController extends Controller
         $category_list=self::getCatgoryList();
         
         $introduction =User::find(1);
+      //  $imgpath=Image::find($introduction->image_id);
         
         return view('front_blog.index',compact('list','month_list','category_list','introduction'));
     }

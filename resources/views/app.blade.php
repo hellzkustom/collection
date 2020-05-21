@@ -20,6 +20,8 @@
      <div class="col-md-10 text-right">
              @if(Auth::check())
                 <a href="/login">info</a>
+                &nbsp;&nbsp;
+                <a href="{{route('user_logout')}}">logout</a>
 
              @else
                 <a href="/login">login</a>

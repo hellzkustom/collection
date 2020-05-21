@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 //return view('welcome');
 //});
 
+ URL::forceScheme('https');
+
+
 Route::get('/', 'FrontBlogController@index')->name('front_index');
 //Route::get('/home', 'FrontBlogController@home')->name('front_home');
 Route::get('/article/{id?}', 'FrontBlogController@article')->name('front_article');
@@ -26,7 +29,11 @@ Route::post('/comment/delete','FrontBlogController@commentDelete')->name('commen
 
 Route::prefix('admin')->group(function(){
     Route::get('form/{id?}','AdminBlogController@form')->name('admin_form');
+
     Route::post('post','AdminBlogController@post')->name('admin_post');
+    Route::post('post/image','AdminBlogController@postArticleImg')->name('admin_post_article_img');
+    
+    
     Route::post('delete', 'AdminBlogController@delete')->name('admin_delete');
     Route::get('list','AdminBlogController@list')->name('admin_list');
 
@@ -36,6 +43,10 @@ Route::prefix('admin')->group(function(){
 
     Route::get('introduction','AdminBlogController@introduction')->name('admin_introduction');
     Route::post('introduction/edit','AdminBlogController@editIntroduction')->name('admin_introduction_edit');
+    Route::get('logout','AdminBlogController@logout')->name('user_logout');
+    
+    Route::post('introduction/postimg','AdminBlogController@postMyImg')->name('admin_post_img');
+Route::post('introduction/setimg','AdminBlogController@setMyImg')->name('admin_set_img');
 
     
 });

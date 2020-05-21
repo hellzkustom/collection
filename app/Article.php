@@ -43,5 +43,9 @@ class Article extends Model
     {
        return $this->hasMany('App\Comment');
     }
-    
+ 
+        public function image()
+    {
+       return $this->hasMany('App\Image');
+    }   
 }

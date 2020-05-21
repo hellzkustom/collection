@@ -15,6 +15,23 @@
     @endif
 @include('error')
     
+ @include('image_view_index')
+    @if(isset($input->id))
+           <form method="POST" action="{{route('admin_post_article_img')}}" enctype="multipart/form-data" class="image_form">
+                     <div class="post_intro">   <input type="file" name="name" accept="image/*" >
+                                      <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                                      <input type="hidden" name="article_id" value="{{$input['id']}}">
+                     
+                     </div>
+                    <div class="post_intro"><input type="submit" value="投稿"></input>
+                    </div>
+        </form>
+ 
+    @else
+    <p>文章を作成してから画像投稿可能</p>
+    @endif
+    
+    
     <form method="POST" action="{{route('admin_post')}}">
     日付<br>
     <input class="form_control"  type="date" name="post_date" size="20" value="{{isset($input['post_date']) ? $input['post_date']:null}}" placeholder="日付を入力して下さい。"><br><br>
@@ -59,6 +76,8 @@
                     {{ csrf_field() }}
                 </form>
             @endif
+            
+        
                     <br><a href="{{ route('admin_list') }}">リストに戻る</a><br><br>
 
         </div>

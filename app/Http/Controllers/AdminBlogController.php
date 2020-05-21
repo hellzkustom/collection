@@ -9,6 +9,8 @@ use App\Article;
 use App\Category;
 use App\User;
 use Auth;
+use App\Image;
+use Illuminate\Support\Facades\File;
 
 class AdminBlogController extends Controller
 {
@@ -41,7 +43,7 @@ class AdminBlogController extends Controller
         $category_list=[];
         $category_list=Category::getCategoryList()->toArray();//->pluck('name','id');        //$category_list=Category::orderBy('display_order','asc')->pluck('name','id');
         
-        return view('admin_blog.form',compact('input','id','category_list'));
+        return view('admin_blog.form',compact('input','id','category_list','article'));
 
 
 
@@ -113,9 +115,9 @@ class AdminBlogController extends Controller
         
     
            $input=User::find(Auth::id());
-
+        $imgpath=Image::find(Auth::user()->image_id);
     
-        return view('admin_blog.introduction',compact('input'));
+        return view('admin_blog.introduction',compact('input','imgpath'));
 
 
     }
@@ -134,7 +136,71 @@ class AdminBlogController extends Controller
 
 
     }
-   
+    
+    public function logout()
+    {
+        
+        Auth::logout();
+        
+        return redirect()->route('front_index');
+        
+    }
+    
+    
+
+    public function postMyImg(AdminBlogRequest $request)
+    {
+    //    $img='Y0MHoeEQwoT9156jPydvfm98NuTwqBV0UqZ95HN6';
+//         File::delete(storage_path().'/app/public/img/'.$img.'.jpeg');
+         
+     $img=$request->file('name')->store('public/img');
+Image::create(['name' => $img,'user_id'=>$request->user_id]);
+
+
+
+  //     $input=$request->input();
+    //     $input->name=$img;
+   //      $id=$request->id;//;Arr::get($input,'id');
   
+  //  Image::updateOrCreate(compact('id'),$input);
+   
+   return redirect()->route('admin_introduction')->with('message','画像ををアップしました');
+    }
+   
+       public function postArticleImg(AdminBlogRequest $request)
+    {
+    //    $img='Y0MHoeEQwoT9156jPydvfm98NuTwqBV0UqZ95HN6';
+//         File::delete(storage_path().'/app/public/img/'.$img.'.jpeg');
+         
+     $img=$request->file('name')->store('public/img');
+Image::create(['name' => $img,'user_id'=>$request->user_id,'article_id'=>$request->article_id]);
+
+
+
+  //     $input=$request->input();
+    //     $input->name=$img;
+   //      $id=$request->id;//;Arr::get($input,'id');
+  
+  //  Image::updateOrCreate(compact('id'),$input);
+   
+     return redirect()->route('admin_form',  ['id' => $request->article_id])->with('message','画像投稿しました');
+   
+}
+ 
+    
+    public function setMyImg(AdminBlogRequest $request)
+    {
+ 
+       $input=$request->input();
+  
+         $id=$request->id;
+  
+    User::where('id', Auth::id()) ->update(['image_id'=>$request->image_id,]);
+ 
+       // updateOrCreate(compact('id'),$input);
+   
+   return redirect()->route('admin_introduction')->with('message','プロフィール画像に設定しました');
+    }
+
     
 }

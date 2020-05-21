@@ -87,6 +87,8 @@ class webApi_category_delete extends webApi{
 
 }
 
+
+
 class webApi_comment_edit extends webApi{
     
        constructor( type, url,ok_mesg ) {
@@ -116,7 +118,9 @@ class webApi_comment_edit extends webApi{
 
     $('#category_submit').on('click', category_edit_action);
      $('#category_delete').on('click', category_delete_action);
+     
     $('#comment_submit').on('click', comment_edit_action);
+    $('#img_submit').on('click', img_post_action);
 
     // 保存ボタン押下時
    function category_edit_action(){
@@ -138,7 +142,7 @@ class webApi_comment_edit extends webApi{
        var obj = new webApi_comment_edit();
         ajax_action(obj);
     }
-    
+
 
     function ajax_action(obj)
     {

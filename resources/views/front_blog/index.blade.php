@@ -24,7 +24,14 @@
                         </a>
                     </div>
                     <div class="panel-body">
+                        
+                        @include("image_view_index") 
+                        
                         <div class="set_body">
+                            
+                           
+                            
+                            
                             <p class="multiline-text">
                             {{--nl2br 関数で改行文字を <br> に変換する。これをエスケープせずに表示させるため {!! !!} で囲む--}}
                             {{--ただし、このまま出力するととても危険なので e 関数で htmlspecialchars 関数を通しておく--}}
@@ -37,7 +44,8 @@
                         {{$article->category->name}}
                     </a>
                         
-                                            &nbsp;&nbsp;
+                    &nbsp;&nbsp;
+                    
                         {{--updated_at も日付ミューテタに設定してあるので Carbon インスタンスにキャストされる--}}
                         {{ $article->updated_at->format('Y/m/d H:i:s') }}
                     
