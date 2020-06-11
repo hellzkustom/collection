@@ -16,7 +16,7 @@
 @include('error')
     
  @include('image_view_index')
-    @if(isset($input->id))
+    @if(isset($id))
            <form method="POST" action="{{route('admin_post_article_img')}}" enctype="multipart/form-data" class="image_form">
                      <div class="post_intro">   <input type="file" name="name" accept="image/*" >
                                       <input type="hidden" name="user_id" value="{{Auth::id()}}">

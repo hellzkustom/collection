@@ -12,7 +12,8 @@
                             }
                     ?>
            @if(isset($input->image))
-                @forelse($input->image as $image)
+           {{$page=$input->image()->orderby('id','desc')->paginate(10)}}
+                @forelse($page as $image)
                         @if($i==0)
                             <div class="image_view_row">
                         @endif
@@ -47,4 +48,4 @@
                   <p>イメージがありません</p>
                  @endif
                    </div>
-               
+               {{ $page->links() }}

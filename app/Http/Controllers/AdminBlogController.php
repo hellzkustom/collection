@@ -115,9 +115,8 @@ class AdminBlogController extends Controller
         
     
            $input=User::find(Auth::id());
-        $imgpath=Image::find(Auth::user()->image_id);
     
-        return view('admin_blog.introduction',compact('input','imgpath'));
+        return view('admin_blog.introduction',compact('input'));
 
 
     }
