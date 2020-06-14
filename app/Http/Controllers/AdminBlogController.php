@@ -186,6 +186,21 @@ Image::create(['name' => $img,'user_id'=>$request->user_id,'article_id'=>$reques
    
 }
  
+ public function deleteImg(AdminBlogRequest $request)
+ {
+        
+        
+        \DB::transaction(function () use ($request) {
+         Image::findOrFail($request->image_id)->delete();       
+        //$post->delete();
+        File::delete(storage_path().'/app/'.$request->name);
+    });
+        
+        
+         return redirect()->route('admin_introduction')->with('message','画像を削除しました');
+  
+ }
+    
     
     public function setMyImg(AdminBlogRequest $request)
     {

@@ -21,11 +21,23 @@
                         <img src="{{ asset('/storage/app/' . $image->name) }}" class="image_base" width="130" heigh"130"/>
                             
                             <form method="POST" action="{{route('admin_set_img')}}">
-                                <input type="hidden" name="image_id" value="{{$image->id}}">
                                 
+                                <input type="hidden" name="image_id" value="{{$image->id}}">
                                 <input type="hidden" name="id" value="{{Auth::id()}}">
+                                
                                 <input type="submit" value="設定">
                             </form>
+                            <br>
+                            <form method="POST" action="{{route('admin_delete_img')}}">
+                                
+                                <input type="hidden" name="image_id" value="{{$image->id}}">
+                                <input type="hidden" name="name" value="{{$image->name}}">
+                                
+                                <input type="submit" value="削除">
+                            </form>
+                            
+                            
+                            
                     </div>                          
                         
                         

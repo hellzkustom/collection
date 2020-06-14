@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //return view('welcome');
 //});
 
- URL::forceScheme('https');
+\URL::forceScheme('https');
 
 
 Route::get('/', 'FrontBlogController@index')->name('front_index');
@@ -46,7 +46,9 @@ Route::prefix('admin')->group(function(){
     Route::get('logout','AdminBlogController@logout')->name('user_logout');
     
     Route::post('introduction/postimg','AdminBlogController@postMyImg')->name('admin_post_img');
-Route::post('introduction/setimg','AdminBlogController@setMyImg')->name('admin_set_img');
+    Route::post('introduction/setimg','AdminBlogController@setMyImg')->name('admin_set_img');
+
+    Route::post('introduction/deleteimg','AdminBlogController@deleteImg')->name('admin_delete_img');
 
     
 });

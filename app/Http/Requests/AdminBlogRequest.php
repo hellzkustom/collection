@@ -58,9 +58,9 @@ class AdminBlogRequest extends FormRequest
             
         ];
         
-        $rules['postImg']=[
+        $rules['postMyImg']=[
 
-               'name' => 'required|file',//|image|mimes:jpeg,png,jpg,gif'
+               'name' => 'required|file|image|mimes:jpeg,png,jpg,gif'
 
 
         ];
@@ -130,7 +130,7 @@ class AdminBlogRequest extends FormRequest
     {
         $action=$this->getCurrentAction();
         
-        if($action=='post'||$action=='delete'|| $action=='editIntroduction'|| $action=='postImg')
+        if($action=='post'||$action=='delete'|| $action=='editIntroduction'|| $action=='postMyImg')
         {
             parent::failedValidation($validator);
         }
