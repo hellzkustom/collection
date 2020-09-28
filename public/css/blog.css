@@ -19,8 +19,12 @@ input[name="title"] {
     width: 400px;
 }
 
+
 textarea[name="body"] {
     width: 400px;
+}
+.number{
+    width:4em;
 }
 .comment{
 display: table-cell;    
@@ -122,3 +126,18 @@ border-radius: 10px;
      
       background: #ffffff;
     }
+.post_sum{
+    
+    padding: 5px;
+    display: flex;
+    /* 軸の設定(既定値がrowなので省略可能) */
+    flex-direction: row;
+    /* 交差軸：上下の配置 */
+    align-items: flex-end;
+}
+
+.date_sum{
+margin-right:  15px;
+
+
+}

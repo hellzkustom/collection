@@ -1,5 +1,16 @@
 @extends('app')
 @section('title','ブログ記事投稿フォーム')
+
+@section('head')
+    {{--jQuery は下記のファイルに記述し読み込むようにする--}}
+
+   <script src="{{ asset('/js/ajax.js') }}"></script>    
+    <script src="{{ asset('/js/form.js') }}"></script>    
+@endsection
+
+
+
+
 @section('body')
     <div class="container">
         <div class="row" name="main">
@@ -35,14 +46,9 @@
     <form method="POST" action="{{route('admin_post')}}">
     日付<br>
     <input class="form_control"  type="date" name="post_date" size="20" value="{{isset($input['post_date']) ? $input['post_date']:null}}" placeholder="日付を入力して下さい。"><br><br>
-
-    タイトル<br>
-    <input class="form_control" name="title" value="{{isset($input['title']) ? $input['title'] : null}}" placeholder="タイトルを入力して下さい。"><br><br>
-
-    本文<br>
-    <textarea class="form_control" cols="50" rows="15" name="body" placeholder="本文を入力してください。">{{isset($input['body']) ? $input['body'] : null}}</textarea><br><br>
-    カテゴリー <br>
-        <select class="form_control" name="category_id">
+  
+  カテゴリー <br>
+        <select class="form_control" name="category_id" id="category">
                           <option value="0" selected>カテゴリー選択してください</option>
     
         @if(isset($input['category_id']))
@@ -60,9 +66,88 @@
 	       @endforeach
         @endif
         </select>
-
+        
         <br><br>
-    <input type="submit" value="送信">
+
+    タイトル<br>
+    <input class="form_control" name="title" value="{{isset($input['title']) ? $input['title'] : null}}" placeholder="タイトルを入力して下さい。"><br><br>
+    
+    
+        <div>
+            
+            <div>
+        
+                    @if(isset($article->street_fighter_v))
+                        LP:<input class="number" type="number" name="lp" value="{{optional($article->street_fighter_v)->lp}}">
+                    @else
+                        LP:<input class="number" type="number" name="lp" value="">
+                    @endif
+                                <button id="check_lp" type="button" name="check_lp" class="btn btn-primary">LP増減</button>
+   
+            </div>
+        Battle Lounge<br>
+            <div>
+                    @if(isset($article->street_fighter_v))
+                    試合数:<input class="number" type="number" name="battle_lounge" value="{{optional($article->street_fighter_v)->battle_lounge}}">
+                    @else
+                    試合数:<input class="number" type="tel" name="battle_lounge" value="">
+                    @endif
+
+                    @if(isset($article->street_fighter_v))
+                    勝利数:<input class="number" type="number" name="battle_lounge_win" value="{{optional($article->street_fighter_v)->battle_lounge_win}}"}><br><bzr>
+                    @else
+                    勝利数:<input class="number" type="number" name="battle_lounge_win" value=""}><br><bzr>
+                    @endif
+            </div>
+
+        Rank Match<br>
+            <div>
+                    @if(isset($article->street_fighter_v))
+                    試合数:<input class="number" type="number" name="rank_match" value="{{optional($article->street_fighter_v)->rank_match}}">
+                    @else
+                    試合数:<input class="number" type="number" name="rank_match" value="">
+                    @endif
+                
+                    @if(isset($article->street_fighter_v))
+                    勝利数:<input class="number" type="number" name="rank_match_win" value="{{optional($article->street_fighter_v)->rank_match_win}}"}><br><bzr>
+                    @else
+                    勝利数:<input class="number" type="number" name="rank_match_win" value=""}><br><bzr>
+                    @endif
+            </div>
+
+            Casual Match<br>
+            <div>
+        
+                    @if(isset($article->street_fighter_v))
+                        試合数:<input class="number" type="number" name="casual_match" value="{{optional($article->street_fighter_v)->casual_match}}">
+                    @else
+                        試合数:<input class="number" type="number" name="casual_match" value="">
+                    @endif
+
+                    @if(isset($article->street_fighter_v))
+                        勝利数:<input class="number" type="number" name="casual_match_win" value="{{optional($article->street_fighter_v)->casual_match_win}}"}><br><bzr>
+                    @else
+                        勝利数:<input class="number" type="number" name="casual_match_win" value=""}><br><bzr>
+                    @endif
+                
+            </div>
+        </div>
+    <div>
+    <br>
+        <div class="post_sum">
+        　      <input class="form_control date_sum"  type="date" name="start_date" size="20" value=""><div>〜</div>
+          　    <input class="form_control date_sum"  type="date" name="end_date" size="20" value="">
+                    <button id="sum" type="button" class="btn btn-primary">集計</button>
+   
+        </div>
+    
+    <br>
+
+    本文<br>
+    <textarea class="form_control" cols="50" rows="15" name="body" placeholder="本文を入力してください。">{{isset($input['body']) ? $input['body'] : null}}</textarea><br><br>
+  
+        <br><br>
+    <input type="submit" value="送信" name="post">
     {{--article_id があるか無いかで新規作成か既存編集かを区別する--}}
     <input type="hidden" name="id" value="{{ $id }}">
     {{--CSRFトークンが生成される--}}
@@ -70,11 +155,16 @@
 </form>
             @if (isset($id))
                 <br>
+                <br>
                 <form action="{{ route('admin_delete') }}" method="POST">
-                    <input type="submit" class="btn btn-primary btn-sm" value="削除">
+                    <input type="submit" class="btn btn-danger btn-sm" value="削除">
                     <input type="hidden" name="id" value="{{ $id }}">
                     {{ csrf_field() }}
                 </form>
+            @else
+                <br>
+                <br>
+                
             @endif
             
         

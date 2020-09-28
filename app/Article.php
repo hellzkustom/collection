@@ -47,5 +47,11 @@ class Article extends Model
         public function image()
     {
        return $this->hasMany('App\Image');
-    }   
+    } 
+    
+        public function street_fighter_v()
+    {
+       return $this->hasOne('App\Street_fighter_v');
+    } 
+    
 }

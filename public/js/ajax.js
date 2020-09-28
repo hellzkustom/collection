@@ -122,6 +122,8 @@ class webApi_comment_edit extends webApi{
     $('#comment_submit').on('click', comment_edit_action);
     $('#img_submit').on('click', img_post_action);
 
+
+
     // 保存ボタン押下時
    function category_edit_action(){
 
@@ -177,7 +179,8 @@ class webApi_comment_edit extends webApi{
         });
 
     }
-
+    
     
 
 });
+

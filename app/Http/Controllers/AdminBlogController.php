@@ -10,7 +10,10 @@ use App\Category;
 use App\User;
 use Auth;
 use App\Image;
+use App\Street_fighter_v;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB; 
+use Carbon\Carbon;
 
 class AdminBlogController extends Controller
 {
@@ -25,6 +28,8 @@ class AdminBlogController extends Controller
         
         
        $article=Article::find($id);
+       $street_fighter_v=Street_fighter_v::find(['article_id'=>$id]);
+
        
         
         $input=[];
@@ -51,16 +56,110 @@ class AdminBlogController extends Controller
     
     public function post(AdminBlogRequest $request)
     {
+    
+
+    
+    
         
-        $input = $request->input();
-        
-       $id=Arr::get($input,'id');
-      
+    $input = $request->input();
+    
+    $id=Arr::get($input,'id');
+
+
+
+
+
             $article = Article::updateOrCreate(compact('id'), $input);
     
     
-        return redirect()->route('admin_form',  ['id' => $article->id])->with('message','記事を保存しました');
+        if(($request->battle_lounge<$request->battle_lounge_win) 
+    ||($request->rank_match<$request->rank_match_win)
+    ||($request->casual_match<$request->casual_match_win) )
+    {
+            return redirect()->route('admin_form',  ['id' => $article->id])->with('message','勝利数が試合数より多い');
         
+    }
+    
+    
+    
+    
+    if(isset($request->battle_lounge) ||isset($request->battle_lounge_win) 
+    ||isset($request->rank_match)|| isset($request->rank_match_win)
+    ||isset($request->casual_match) ||isset($request->casual_match_win) )
+    {
+            $street_fighter_v=Street_fighter_v::updateOrCreate(['article_id'=>$article->id],$input);
+    }
+            return redirect()->route('admin_form',  ['id' => $article->id])->with('message','記事を保存しました');
+        
+    }
+    
+    
+    
+        public function get_latest_lp(Request $request)
+   {
+
+    $cnt=Street_fighter_v::join('articles','street_fighter_vs.article_id','=','articles.id')
+    ->where('lp','>',0)
+    ->orderby('articles.post_date','desc')
+    ->value('lp');
+
+    return response()->json([
+        'latest_lp'=>$cnt,
+        ]);
+
+    }
+    
+            public function get_title_count(Request $request)
+   {
+
+    $cnt=Article::where('category_id','=',$request->category_id)
+    ->count();
+
+    return response()->json([
+        'count'=>$cnt,
+        ]);
+
+    }
+    
+    public function get_data_street_fighter_v(Request $request)
+   {
+
+    $cnt=Street_fighter_v::join('articles','street_fighter_vs.article_id','=','articles.id')
+    ->whereDate('articles.post_date','>=',$request->input('start_date'))
+    ->whereDate('articles.post_date','<=',$request->input('end_date'))
+    ->selectRaw( 'SUM(battle_lounge) as battle_lounge,
+                SUM(battle_lounge_win) as battle_lounge_win,
+                SUM(rank_match) as rank_match,
+                SUM(rank_match_win) as rank_match_win,
+                SUM(casual_match) as casual_match,
+                SUM(casual_match_win) as casual_match_win'
+                )->first();//->sum('battle_lounge');
+   
+ //   $cnt_battle_lounge_win=Street_fighter_v::join('articles','street_fighter_vs.article_id','=','articles.id')
+ //   ->whereDate('articles.post_date','>=',$request->input('start_date'))
+ //   ->whereDate('articles.post_date','<=',$request->input('end_date'))
+ //   ->sum('battle_lounge_win');
+     
+    $lp_start=Street_fighter_v::join('articles','street_fighter_vs.article_id','=','articles.id')
+    ->whereDate('articles.post_date','=',$request->input('start_date'))
+    ->value('lp');
+
+    $lp_end=Street_fighter_v::join('articles','street_fighter_vs.article_id','=','articles.id')
+    ->whereDate('articles.post_date','=',$request->input('end_date'))
+    ->value('lp');
+    
+    
+    return response()->json([
+        'battle_lounge'=>$cnt->battle_lounge,
+        'battle_lounge_win'=>$cnt->battle_lounge_win,
+        'rank_match'=>$cnt->rank_match,
+        'rank_match_win'=>$cnt->rank_match_win,
+        'casual_match'=>$cnt->casual_match,
+        'casual_match_win'=>$cnt->casual_match_win,
+        'lp_start'=>$lp_start,
+        'lp_end'=>$lp_end,            
+        ]);
+
     }
         public function delete(AdminBlogRequest $request)
     {
@@ -191,7 +290,9 @@ Image::create(['name' => $img,'user_id'=>$request->user_id,'article_id'=>$reques
         
         
         \DB::transaction(function () use ($request) {
-         Image::findOrFail($request->image_id)->delete();       
+         Image::findOrFail($request->image_id)->delete();
+         User::where('image_id', $request->image_id)->update(['image_id' => 0]);
+         
         //$post->delete();
         File::delete(storage_path().'/app/'.$request->name);
     });

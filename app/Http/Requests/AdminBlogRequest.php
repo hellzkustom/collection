@@ -35,6 +35,16 @@ class AdminBlogRequest extends FormRequest
             'title'      => 'required|string|max:255',       // 必須・文字列・最大値（255文字まで）
             'body'       => 'required|string|max:10000',     // 必須・文字列・最大値（10000文字まで）
                     'category_id'=>'required|integer|min:1',
+       
+            'battle_lounge'=> 'integer|nullable',
+            'battle_lounge_win'=> 'integer|nullable',
+            
+            'rank_match'=> 'integer|nullable',
+            'rank_match_win'=> 'integer|nullable',
+            
+            'casual_match'=> 'integer|nullable',
+            'casual_match_win'=> 'integer|nullable',
+            
         ];
 
         $rules['delete'] = [
@@ -107,7 +117,17 @@ class AdminBlogRequest extends FormRequest
             'comment.required'=>'commentは必須です',
             'comment.string'=>'commentは文字列を入力してください',
             'comment.max'=>'commentは:max文字以内で入力してください',
-
+            
+            
+            'casual_match.integer'=>'試合数は数字を入力して下さい',
+            'rank_match.integer'=>'試合数は数字を入力して下さい',
+            'battle_lounge.integer'=>'試合数は数字を入力して下さい',
+            
+            'casual_match_win.integer'=>'勝利数は数字を入力して下さい',
+            'rank_match_win.integer'=>'勝利数は数字を入力して下さい',
+            'battle_lounge_win.integer'=>'勝利数は数字を入力して下さい',
+            
+            
           //    'image_file_name.required'=>'ファイルを選択してください',
              // 'image_file_name.file'=>'アップロードに失敗しました',
         

@@ -1,12 +1,12 @@
 @extends('app')
-@section('title', '私のブログ')
+@section('title', 'eふぁいたーっす!')
 
 @section('body')
 
     <div class="container">
           <div class="row" name="main">
             <div class="col-md-10 col-md-offset-1">
-                <h2><a href="{{ route('front_index') }}">私のブログ</a></h2>
+                <h2><a href="{{ route('front_index') }}">eふぁいたーっす!</a></h2>
                       @include('error')
             </div>
         </div>
@@ -29,7 +29,31 @@
                         
                         <div class="set_body">
                             
-                           
+                            @if( optional($article->street_fighter_v)->battle_lounge)
+                             <div>
+                               ラウンジ試合数:{{$article->street_fighter_v->battle_lounge}}&nbsp;
+                               勝利数:{{$article->street_fighter_v->battle_lounge_win}}&nbsp;
+                               勝率:{{sprintf("%.3f",$article->street_fighter_v->battle_lounge_win/$article->street_fighter_v->battle_lounge)}}
+                            </div>
+                            <br>
+                            @endif
+                            @if( optional($article->street_fighter_v)->rank_match)
+                            <div>
+                                ランクマ試合数:{{$article->street_fighter_v->rank_match}}&nbsp;
+                               勝利数:{{$article->street_fighter_v->rank_match_win}}&nbsp;
+                               勝率:{{sprintf("%.3f",$article->street_fighter_v->rank_match_win/$article->street_fighter_v->rank_match)}}
+                            </div>
+                            <br>
+                            @endif
+                                @if( optional($article->street_fighter_v)->casual_match)
+                            <div>
+                                カジュアル試合数:{{$article->street_fighter_v->casual_match}}&nbsp;
+                               勝利数:{{$article->street_fighter_v->casual_match_win}}&nbsp;
+                               勝率:{{sprintf("%.3f",$article->street_fighter_v->casual_match_win/$article->street_fighter_v->casual_match)}}
+                            </div>
+                            <br>
+                            @endif
+                        
                             
                             
                             <p class="multiline-text">

@@ -33,6 +33,10 @@ Route::prefix('admin')->group(function(){
     Route::post('post','AdminBlogController@post')->name('admin_post');
     Route::post('post/image','AdminBlogController@postArticleImg')->name('admin_post_article_img');
     
+    Route::get('post/get_data_street_fighter_v','AdminBlogController@get_data_street_fighter_v')->name('admin_get_data_street_fighter_v');
+    Route::get('post/get_latest_lp','AdminBlogController@get_latest_lp')->name('admin_get_latest_lp');
+    Route::get('post/get_title_count','AdminBlogController@get_title_count')->name('admin_get_title_count');
+
     
     Route::post('delete', 'AdminBlogController@delete')->name('admin_delete');
     Route::get('list','AdminBlogController@list')->name('admin_list');

@@ -1,5 +1,5 @@
 @extends('app')
-@section('title', '私のブログ')
+@section('title', 'eふぁいたーっす!')
 
 @section('head')
     {{--jQuery は下記のファイルに記述し読み込むようにする--}}
@@ -12,7 +12,7 @@
         
           <div class="row" name="main">
             <div class="col-md-10 col-md-offset-1">
-                <h2><a href="{{ route('front_index') }}">私のブログ</a></h2>
+                <h2><a href="{{ route('front_index') }}">eふぁいたーっす!</a></h2>
              @include('error')
             </div>
         </div>
@@ -31,9 +31,47 @@
                         <h3 class="panel-title">{{ $article->post_date->format('Y/m/d(D)') }}　{{ $article->title }}</h3>
                     </div>
                             <div class="panel-body">
-
+@php
+$ck=false;
+@endphp
                                            @include("image_view_index")  
-                                                        
+                            @if( optional($article->street_fighter_v)->battle_lounge)
+                                <div>
+                               ラウンジ試合数:{{$article->street_fighter_v->battle_lounge}}&nbsp;
+                               勝利数:{{$article->street_fighter_v->battle_lounge_win}}&nbsp;
+                               勝率:{{sprintf("%.3f",$article->street_fighter_v->battle_lounge_win/$article->street_fighter_v->battle_lounge)}}
+                            @php
+                            $ck=true;
+                            @endphp
+                            </div>
+                            @endif
+                            @if( optional($article->street_fighter_v)->rank_match)
+                            <div>
+                                ランクマ試合数:{{$article->street_fighter_v->rank_match}}&nbsp;
+                               勝利数:{{$article->street_fighter_v->rank_match_win}}&nbsp;
+                               勝率:{{sprintf("%.3f",$article->street_fighter_v->rank_match_win/$article->street_fighter_v->rank_match)}}
+                            @php
+                            $ck=true;
+                            @endphp
+                            </div>
+                            @endif
+                            @if( optional($article->street_fighter_v)->casual_match)
+                            <div>
+                                カジュアル試合数:{{$article->street_fighter_v->casual_match}}&nbsp;
+                               勝利数:{{$article->street_fighter_v->casual_match_win}}&nbsp;
+                               勝率:{{sprintf("%.3f",$article->street_fighter_v->casual_match_win/$article->street_fighter_v->casual_match)}}
+                            @php
+                            $ck=true;
+                            @endphp
+                            </div>
+                            
+                            @endif
+                            
+                            @if($ck==true)
+                            
+                            総括
+                            <br>
+                            @endif
                                 
                                    {{--nl2br 関数で改行文字を <br> に変換する。これをエスケープせずに表示させるため {!! !!} で囲む--}}
                                     {{--ただし、このまま出力するととても危険なので e 関数で htmlspecialchars 関数を通しておく--}}

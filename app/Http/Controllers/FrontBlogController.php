@@ -48,7 +48,7 @@ class FrontBlogController extends Controller
     public function getCatgoryList()
     {
         $category_list=Category::select('name','id')
-                             ->orderBy('display_order','desc')
+                             ->orderBy('display_order','asc')
                              ->get();
      
             return $category_list;
