@@ -28,7 +28,7 @@
                         @include("image_view_index") 
                         
                         <div class="set_body">
-                            
+                          @if($article->category_id==17)  
                             @if( optional($article->street_fighter_v)->battle_lounge)
                              <div>
                                ラウンジ試合数:{{$article->street_fighter_v->battle_lounge}}&nbsp;
@@ -54,7 +54,7 @@
                             <br>
                             @endif
                         
-                            
+                            @endif
                             
                             <p class="multiline-text">
                             {{--nl2br 関数で改行文字を <br> に変換する。これをエスケープせずに表示させるため {!! !!} で囲む--}}

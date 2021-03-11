@@ -34,7 +34,9 @@
 @php
 $ck=false;
 @endphp
-                                           @include("image_view_index")  
+                                           @include("image_view_index")
+                      @if($article->category_id==17)
+                      
                             @if( optional($article->street_fighter_v)->battle_lounge)
                                 <div>
                                ラウンジ試合数:{{$article->street_fighter_v->battle_lounge}}&nbsp;
@@ -72,7 +74,7 @@ $ck=false;
                             総括
                             <br>
                             @endif
-                                
+                                @endif
                                    {{--nl2br 関数で改行文字を <br> に変換する。これをエスケープせずに表示させるため {!! !!} で囲む--}}
                                     {{--ただし、このまま出力するととても危険なので e 関数で htmlspecialchars 関数を通しておく--}}
                                     {!! nl2br(e($article->body)) !!}

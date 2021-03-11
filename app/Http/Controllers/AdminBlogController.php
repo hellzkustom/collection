@@ -74,7 +74,8 @@ class AdminBlogController extends Controller
     
         if(($request->battle_lounge<$request->battle_lounge_win) 
     ||($request->rank_match<$request->rank_match_win)
-    ||($request->casual_match<$request->casual_match_win) )
+    ||($request->casual_match<$request->casual_match_win)
+    ||isset($request->lp)==false)
     {
             return redirect()->route('admin_form',  ['id' => $article->id])->with('message','勝利数が試合数より多い');
         
@@ -85,7 +86,8 @@ class AdminBlogController extends Controller
     
     if(isset($request->battle_lounge) ||isset($request->battle_lounge_win) 
     ||isset($request->rank_match)|| isset($request->rank_match_win)
-    ||isset($request->casual_match) ||isset($request->casual_match_win) )
+    ||isset($request->casual_match) ||isset($request->casual_match_win)
+    ||isset($request->lp))
     {
             $street_fighter_v=Street_fighter_v::updateOrCreate(['article_id'=>$article->id],$input);
     }
