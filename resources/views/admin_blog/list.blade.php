@@ -22,11 +22,19 @@
                 </a>
    
                   </a>
-                
                                 <a href="{{ route('admin_introduction') }}">
                     <span class="btn btn-primary btn-sm">自己紹介編集</span>
                 </a>
- 
+                   </a>
+
+                    <br><br>
+                    <a href="{{ route('admin_map_view') }}">
+                    <span class="btn btn-primary btn-sm">Map</span>
+                </a>
+
+                                <a href="{{ route('admin_map') }}">
+                    <span class="btn btn-primary btn-sm">Map編集</span>
+                </a>
                 
                 <br>
 

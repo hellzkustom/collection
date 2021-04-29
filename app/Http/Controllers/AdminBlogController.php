@@ -123,9 +123,9 @@ class AdminBlogController extends Controller
 
     }
     
-    public function get_data_street_fighter_v(Request $request)
-   {
 
+    public function get_data_street_fighter_v(Request $request)
+    {
     $cnt=Street_fighter_v::join('articles','street_fighter_vs.article_id','=','articles.id')
     ->whereDate('articles.post_date','>=',$request->input('start_date'))
     ->whereDate('articles.post_date','<=',$request->input('end_date'))
@@ -318,6 +318,10 @@ Image::create(['name' => $img,'user_id'=>$request->user_id,'article_id'=>$reques
    
    return redirect()->route('admin_introduction')->with('message','プロフィール画像に設定しました');
     }
+    
+    
+
+
 
     
 }

@@ -25,7 +25,7 @@ Route::get('/', 'FrontBlogController@index')->name('front_index');
 Route::get('/article/{id?}', 'FrontBlogController@article')->name('front_article');
 Route::post('/comment/post','FrontBlogController@commentPost')->name('commentPost');
 Route::post('/comment/delete','FrontBlogController@commentDelete')->name('commentDelete');
-
+Route::get('/analyze','FrontBlogController@analyze')->name('front_analyze');
 
 Route::prefix('admin')->group(function(){
     Route::get('form/{id?}','AdminBlogController@form')->name('admin_form');
@@ -53,8 +53,13 @@ Route::prefix('admin')->group(function(){
     Route::post('introduction/setimg','AdminBlogController@setMyImg')->name('admin_set_img');
 
     Route::post('introduction/deleteimg','AdminBlogController@deleteImg')->name('admin_delete_img');
-
+    Route::get('introduction/map','MapdataController@map')->name('admin_map');
     
+    Route::get('introduction/map/getdata','MapdataController@get')->name('admin_map_get');
+    Route::post('introduction/map/postdata','MapdataController@post')->name('admin_map_post');
+    Route::post('introduction/map/deletedata','MapdataController@delete')->name('admin_map_delete');
+    Route::get('introduction/mapview','MapdataController@view')->name('admin_map_view');
+
 });
 
 Auth::routes();

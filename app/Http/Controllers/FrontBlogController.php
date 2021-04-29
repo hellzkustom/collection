@@ -11,6 +11,9 @@ use Carbon\Carbon;
 use App\User;
 use App\Comment;
 use App\Image;
+use App\Http\Controllers\AdminBlogController;
+use App\Street_fighter_v;
+use DateTime;
 
 class FrontBlogController extends Controller
 {
@@ -24,6 +27,12 @@ class FrontBlogController extends Controller
  //       $this->article = $article;
  //       $this->category = $category;
  //   }
+
+    public function analyze()
+    {
+        return view('front_blog.analyze');
+    }
+
 
     
    public function index(FrontBlogRequest $request)
@@ -40,10 +49,61 @@ class FrontBlogController extends Controller
         $category_list=self::getCatgoryList();
         
         $introduction =User::find(1);
+        
+        
+        $result=self::get_data_street_fighter_v();
+    
       //  $imgpath=Image::find($introduction->image_id);
         
-        return view('front_blog.index',compact('list','month_list','category_list','introduction'));
+        return view('front_blog.index',compact('list','month_list','category_list','introduction','result'));
     }
+    
+        public function get_data_street_fighter_v()
+    {
+        $start_date= new DateTime('last week');
+        $end_date= new DateTime(Street_fighter_v::join('articles','street_fighter_vs.article_id','=','articles.id')
+    ->max('articles.post_date'));
+    
+    $cnt=Street_fighter_v::join('articles','street_fighter_vs.article_id','=','articles.id')
+    ->whereDate('articles.post_date','>=',$start_date)
+    ->whereDate('articles.post_date','<=',$end_date)
+    ->selectRaw( 'SUM(battle_lounge) as battle_lounge,
+                SUM(battle_lounge_win) as battle_lounge_win,
+                SUM(rank_match) as rank_match,
+                SUM(rank_match_win) as rank_match_win,
+                SUM(casual_match) as casual_match,
+                SUM(casual_match_win) as casual_match_win'
+                )->first();//->sum('battle_lounge');
+   
+ //   $cnt_battle_lounge_win=Street_fighter_v::join('articles','street_fighter_vs.article_id','=','articles.id')
+ //   ->whereDate('articles.post_date','>=',$request->input('start_date'))
+ //   ->whereDate('articles.post_date','<=',$request->input('end_date'))
+ //   ->sum('battle_lounge_win');
+     
+    $lp_start=Street_fighter_v::join('articles','street_fighter_vs.article_id','=','articles.id')
+    ->whereDate('articles.post_date','=',$start_date)
+    ->value('lp');
+
+    $lp_end=Street_fighter_v::join('articles','street_fighter_vs.article_id','=','articles.id')
+    ->whereDate('articles.post_date','=',$end_date)
+    ->value('lp');
+    
+    
+    return array(
+        'battle_lounge'=>$cnt->battle_lounge,
+        'battle_lounge_win'=>$cnt->battle_lounge_win,
+        'rank_match'=>$cnt->rank_match,
+        'rank_match_win'=>$cnt->rank_match_win,
+        'casual_match'=>$cnt->casual_match,
+        'casual_match_win'=>$cnt->casual_match_win,
+        'lp_start'=>$lp_start,
+        'lp_end'=>$lp_end,       
+        'start_date'=>$start_date->format('Y/m/d'),
+        'end_date'=>$end_date->format('Y/m/d'),
+        );
+
+    }
+
     
     public function getCatgoryList()
     {
@@ -117,10 +177,12 @@ class FrontBlogController extends Controller
         $month_list=self::getMonthList();
         $category_list=self::getCatgoryList();
         
+        
         $introduction =User::find(1);
         
+        $result=self::get_data_street_fighter_v();
         
-        return view('front_blog.article',compact('article','month_list','category_list','introduction'));
+        return view('front_blog.article',compact('article','month_list','category_list','introduction','result'));
         
         
     }
